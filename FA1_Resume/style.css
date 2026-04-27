@@ -1,0 +1,296 @@
+* {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #d9dee4;
+            color: #283343;
+            font-family: Arial, Helvetica, sans-serif;
+            letter-spacing: 0;
+        }
+
+        .resume {
+            width: 900px;
+            min-height: 1120px;
+            margin: 32px auto;
+            background: #f7f8fa;
+            box-shadow: 0 16px 40px rgba(22, 34, 48, 0.25);
+        }
+
+        .header {
+            display: grid;
+            grid-template-columns: 1fr 178px;
+            gap: 32px;
+            align-items: center;
+            min-height: 180px;
+            padding: 28px 34px;
+            background: #223243;
+            color: #ffffff;
+        }
+
+        .name-line {
+            min-height: 58px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.45);
+        }
+
+        .name {
+            margin: 0;
+            min-height: 48px;
+            font-size: 48px;
+            font-weight: 500;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .location {
+            min-height: 22px;
+            margin: 16px 0 12px;
+            color: #ff3f3f;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .contact {
+            min-height: 54px;
+            color: #d8e1ea;
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .photo {
+            width: 150px;
+            height: 150px;
+            justify-self: end;
+            border: 6px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+            background: #536273;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+        }
+
+        .sidebar {
+            padding: 28px 34px 48px;
+            background: #4b5a69;
+            color: #ffffff;
+        }
+
+        .main {
+            padding: 0 40px 48px;
+            background: #ffffff;
+        }
+
+        .section {
+            margin-bottom: 34px;
+        }
+
+        .main .section {
+            padding-top: 24px;
+            border-top: 4px solid #ff3f3f;
+        }
+
+        .main .section:first-child {
+            border-top: 0;
+        }
+
+        h2 {
+            margin: 0 0 16px;
+            color: #283343;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+        }
+
+        .sidebar h2 {
+            color: #ff3f3f;
+            font-size: 13px;
+        }
+
+        .blank-list {
+            min-height: 210px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .blank-list li {
+            height: 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .blank-list.compact {
+            min-height: 132px;
+        }
+
+        .reference {
+            min-height: 98px;
+            margin-bottom: 22px;
+            color: #dce4ec;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .reference-title {
+            min-height: 18px;
+            margin-bottom: 8px;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .profile-lines {
+            min-height: 82px;
+        }
+
+        .line {
+            display: block;
+            height: 15px;
+            margin-bottom: 9px;
+            border-bottom: 1px solid #b7c0ca;
+        }
+
+        .job {
+            margin-bottom: 24px;
+        }
+
+        .job-title {
+            min-height: 18px;
+            margin: 0 0 6px;
+            color: #283343;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .job-meta {
+            min-height: 16px;
+            margin-bottom: 12px;
+            color: #7a8591;
+            font-size: 12px;
+        }
+
+        .job ul {
+            min-height: 88px;
+            margin: 0;
+            padding-left: 22px;
+            color: #53606f;
+        }
+
+        .job li {
+            min-height: 18px;
+            margin-bottom: 8px;
+        }
+
+        .education-item {
+            min-height: 62px;
+            margin-bottom: 18px;
+        }
+
+        .education-meta {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 6px;
+            color: #7a8591;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .education-level {
+            color: #1f8fff;
+        }
+
+        .education-date {
+            color: #7a8591;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .degree {
+            min-height: 18px;
+            margin: 0 0 6px;
+            color: #283343;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .school {
+            min-height: 16px;
+            color: #7a8591;
+            font-size: 12px;
+        }
+
+        .certification-item {
+            margin-bottom: 24px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #e3e8ef;
+        }
+
+        .certification-status {
+            margin-bottom: 4px;
+            color: #1f8fff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .certification-title {
+            margin: 0 0 6px;
+            color: #283343;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .certification-meta {
+            margin-bottom: 10px;
+            color: #7a8591;
+            font-size: 12px;
+        }
+
+        .credential-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: #f3f5f8;
+            color: #4a5562;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .credential-link:hover {
+            background: #e9edf3;
+        }
+
+        @media (max-width: 940px) {
+            .resume {
+                width: 100%;
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .header,
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .photo {
+                justify-self: start;
+            }
+
+            .main {
+                padding: 0 28px 40px;
+            }
+        }
