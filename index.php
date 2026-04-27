@@ -8,7 +8,7 @@
 <body>
     <div class="header">
         <h1>these are my PHP activities</h1>
-        <p>PHP is not fun!</p>
+        <p>PHP is not fun! test</p>
     </div>
 </body>
 </html>
