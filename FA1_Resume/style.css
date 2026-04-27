@@ -4,68 +4,67 @@
 
         body {
             margin: 0;
-            background: #d9dee4;
-            color: #283343;
-            font-family: Arial, Helvetica, sans-serif;
+            background: #eef3f8;
+            color: #243447;
+            font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
             letter-spacing: 0;
         }
 
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
         .resume {
-            width: 900px;
-            min-height: 1120px;
-            margin: 32px auto;
-            background: #f7f8fa;
-            box-shadow: 0 16px 40px rgba(22, 34, 48, 0.25);
+            width: 250mm;
+            min-height: 297mm;
+            margin: 12px auto;
+            background: #ffffff;
+            box-shadow: 0 14px 32px rgba(17, 30, 50, 0.15);
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         .header {
             display: grid;
             grid-template-columns: 1fr 178px;
-            gap: 32px;
+            gap: 24px;
             align-items: center;
-            min-height: 180px;
-            padding: 28px 34px;
-            background: #223243;
+            min-height: 52mm;
+            padding: 20px 28px;
+            background: linear-gradient(135deg, #162536, #213447 70%);
             color: #ffffff;
         }
 
         .name-line {
-            min-height: 58px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.45);
+            min-height: 44px;
+            margin-bottom: 6px;
         }
 
         .name {
             margin: 0;
-            min-height: 48px;
-            font-size: 48px;
-            font-weight: 500;
+            min-height: 40px;
+            font-size: 40px;
+            font-weight: 600;
             line-height: 1;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .location {
-            min-height: 22px;
-            margin: 16px 0 12px;
-            color: #ff3f3f;
-            font-size: 15px;
+            min-height: 18px;
+            margin: 12px 0 8px;
+            color: #6ec1ff;
+            font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
         }
 
         .contact {
-            min-height: 54px;
+            min-height: 42px;
             color: #d8e1ea;
-            font-size: 13px;
-            line-height: 1.45;
-        }
-
-        .photo {
-            width: 150px;
-            height: 150px;
-            justify-self: end;
-            border: 6px solid rgba(255, 255, 255, 0.18);
-            border-radius: 50%;
-            background: #536273;
+            font-size: 12px;
+            line-height: 1.35;
         }
 
         .content {
@@ -74,23 +73,22 @@
         }
 
         .sidebar {
-            padding: 28px 34px 48px;
-            background: #4b5a69;
+            padding: 22px 28px 30px;
+            background: #3f4d5d;
             color: #ffffff;
         }
 
         .main {
-            padding: 0 40px 48px;
+            padding: 0 28px 30px;
             background: #ffffff;
         }
 
         .section {
-            margin-bottom: 34px;
+            margin-bottom: 18px;
         }
 
         .main .section {
-            padding-top: 24px;
-            border-top: 4px solid #ff3f3f;
+            padding-top: 14px;
         }
 
         .main .section:first-child {
@@ -98,45 +96,65 @@
         }
 
         h2 {
-            margin: 0 0 16px;
-            color: #283343;
-            font-size: 14px;
-            font-weight: 800;
+            margin: 0 0 12px;
+            color: #1f2d3d;
+            font-size: 15px;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 6px;
+            letter-spacing: 0.6px;
         }
 
         .sidebar h2 {
-            color: #ff3f3f;
+            color: #6ec1ff;
             font-size: 13px;
+            letter-spacing: 2px;
+        }
+
+        .section-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .section-toolbar h2 {
+            margin-bottom: 0;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
         }
 
         .blank-list {
-            min-height: 210px;
             margin: 0;
             padding: 0;
             list-style: none;
         }
 
         .blank-list li {
-            height: 22px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            min-height: 26px;
+            padding: 4px 0;
+            line-height: 1.25;
         }
 
         .blank-list.compact {
-            min-height: 132px;
+            display: grid;
+            gap: 0;
         }
 
         .reference {
-            min-height: 98px;
-            margin-bottom: 22px;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
             color: #dce4ec;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
         }
 
         .reference-title {
-            min-height: 18px;
-            margin-bottom: 8px;
+            min-height: 16px;
+            margin-bottom: 6px;
             color: #ffffff;
             font-size: 12px;
             font-weight: 800;
@@ -144,62 +162,81 @@
         }
 
         .profile-lines {
-            min-height: 82px;
+            display: grid;
+            gap: 6px;
         }
 
         .line {
             display: block;
-            height: 15px;
-            margin-bottom: 9px;
-            border-bottom: 1px solid #b7c0ca;
+            min-height: 18px;
+            padding-bottom: 4px;
+            line-height: 1.35;
         }
 
         .job {
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
 
         .job-title {
-            min-height: 18px;
+            min-height: 16px;
             margin: 0 0 6px;
-            color: #283343;
-            font-size: 13px;
+            color: #1f2d3d;
+            font-size: 12px;
             font-weight: 800;
             text-transform: uppercase;
         }
 
         .job-meta {
-            min-height: 16px;
-            margin-bottom: 12px;
-            color: #7a8591;
-            font-size: 12px;
+            min-height: 14px;
+            margin-bottom: 8px;
+            color: #6e7a87;
+            font-size: 11px;
         }
 
         .job ul {
-            min-height: 88px;
             margin: 0;
-            padding-left: 22px;
+            padding-left: 18px;
             color: #53606f;
         }
 
         .job li {
             min-height: 18px;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
+            line-height: 1.35;
         }
 
         .education-item {
-            min-height: 62px;
-            margin-bottom: 18px;
+            min-height: 0;
+            margin-bottom: 10px;
+        }
+
+        .education-item--modern,
+        .certification-item--modern {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 8px;
+            align-items: start;
+            padding: 8px 0;
+        }
+
+        .education-item--modern {
+            padding-bottom: 14px;
+        }
+
+        .education-copy,
+        .certification-copy {
+            min-width: 0;
         }
 
         .education-meta {
             display: flex;
-            gap: 10px;
-            margin-bottom: 6px;
+            gap: 8px;
+            margin-bottom: 3px;
             color: #7a8591;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
         }
 
         .education-level {
@@ -214,28 +251,31 @@
         }
 
         .degree {
-            min-height: 18px;
-            margin: 0 0 6px;
-            color: #283343;
-            font-size: 13px;
-            font-weight: 800;
-            text-transform: uppercase;
+            min-height: 16px;
+            margin: 0 0 3px;
+            color: #1f2d3d;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: none;
+            line-height: 1.25;
         }
 
         .school {
-            min-height: 16px;
-            color: #7a8591;
+            min-height: 14px;
+            color: #6e7a87;
             font-size: 12px;
         }
 
         .certification-item {
-            margin-bottom: 24px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid #e3e8ef;
+            margin-bottom: 4px;
+        }
+
+        .certification-item--modern {
+            grid-template-columns: minmax(0, 1fr);
         }
 
         .certification-status {
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             color: #1f8fff;
             font-size: 12px;
             font-weight: 800;
@@ -244,39 +284,29 @@
         }
 
         .certification-title {
-            margin: 0 0 6px;
-            color: #283343;
-            font-size: 16px;
-            font-weight: 800;
+            margin: 0 0 4px;
+            color: #1f2d3d;
+            font-size: 15px;
+            font-weight: 700;
         }
 
         .certification-meta {
-            margin-bottom: 10px;
-            color: #7a8591;
-            font-size: 12px;
+            margin-bottom: 0;
+            color: #6e7a87;
+            font-size: 11px;
         }
 
-        .credential-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 16px;
-            border-radius: 8px;
-            background: #f3f5f8;
-            color: #4a5562;
+        .credential-text {
+            color: #6e7a87;
             font-size: 12px;
             font-weight: 700;
-            text-decoration: none;
-        }
-
-        .credential-link:hover {
-            background: #e9edf3;
         }
 
         @media (max-width: 940px) {
             .resume {
                 width: 100%;
                 margin: 0;
+                min-height: 100vh;
             }
         }
 
@@ -286,11 +316,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .photo {
-                justify-self: start;
+            .main {
+                padding: 0 24px 32px;
             }
 
-            .main {
-                padding: 0 28px 40px;
-            }
         }
