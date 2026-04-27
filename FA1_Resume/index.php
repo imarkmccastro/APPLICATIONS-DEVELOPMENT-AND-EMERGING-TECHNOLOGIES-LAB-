@@ -5,6 +5,7 @@ $phoneNumber = "+63 912 345 6789";
 $emailAddress = "mark.benedict.castro@gmail.com";
 $website = "https://markbenedictcastro.com";
 
+// Core resume content.
 $expertise = [
     "Web development and responsive layout",
     "Frontend design and styling",
@@ -47,6 +48,7 @@ $references = [
     ],
 ];
 
+// Short student summary for the profile section.
 $profile = [
     "BSIT student focused on web and application development with a strong interest in building clean and functional interfaces.",
     "Comfortable working with PHP, HTML, CSS, JavaScript, Python, and MySQL for school requirements and hands-on projects.",
@@ -54,6 +56,7 @@ $profile = [
     "Motivated to keep improving technical skills and apply them to practical systems that solve real problems.",
 ];
 
+// Experience highlights from school and project work.
 $experience = [
     [
         "title" => "Student Developer",
