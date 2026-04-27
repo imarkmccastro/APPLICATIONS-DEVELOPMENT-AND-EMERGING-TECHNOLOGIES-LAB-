@@ -2,87 +2,87 @@
 $fullName = "Mark Benedict Castro";
 $location = "Manila, Philippines";
 $phoneNumber = "+63 912 345 6789";
-$emailAddress = "mark.benedict.castro@example.com";
+$emailAddress = "mark.benedict.castro@gmail.com";
 $website = "https://markbenedictcastro.com";
 
 $expertise = [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
+    "Web development and responsive layout",
+    "Frontend design and styling",
+    "Backend scripting with PHP",
+    "Database handling and data entry",
+    "Problem solving and debugging",
+    "Documentation and reporting",
+    "Collaborative class projects",
+    "Time management and organization",
+    "Continuous learning in IT",
 ];
 
-$operationalSkills = [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
+$technicalSkills = [
+    "HTML5 and semantic markup",
+    "CSS3 and responsive layout",
+    "PHP and server-side scripting",
+    "JavaScript fundamentals",
+    "Python programming basics",
+    "MySQL database basics",
 ];
 
 $references = [
     [
-        "name" => "",
-        "position" => "",
-        "email" => "",
-        "website" => "",
+        "name" => "Academic Adviser",
+        "position" => "Faculty Reference",
+        "email" => "Available upon request",
+        "website" => "FEU Institute of Technology",
     ],
     [
-        "name" => "",
-        "position" => "",
-        "email" => "",
-        "website" => "",
+        "name" => "Programming Instructor",
+        "position" => "Technical Reference",
+        "email" => "Available upon request",
+        "website" => "BSIT Coursework",
     ],
     [
-        "name" => "",
-        "position" => "",
-        "email" => "",
-        "website" => "",
+        "name" => "Project Peer",
+        "position" => "Student Reference",
+        "email" => "Available upon request",
+        "website" => "Group Project Collaboration",
     ],
 ];
 
 $profile = [
-    "",
-    "",
-    "",
-    "",
+    "BSIT student focused on web and application development with a strong interest in building clean and functional interfaces.",
+    "Comfortable working with PHP, HTML, CSS, JavaScript, Python, and MySQL for school requirements and hands-on projects.",
+    "Developing problem-solving, documentation, and teamwork skills through coursework and project-based learning.",
+    "Motivated to keep improving technical skills and apply them to practical systems that solve real problems.",
 ];
 
 $experience = [
     [
-        "title" => "",
-        "company" => "",
-        "date" => "",
+        "title" => "Student Developer",
+        "company" => "Academic Projects",
+        "date" => "2024 - Present",
         "details" => [
-            "",
-            "",
-            "",
+            "Built responsive school outputs and practice pages using PHP, HTML, and CSS.",
+            "Applied semantic structure, clean layout, and basic validation techniques.",
+            "Improved code organization through repeated revisions and feedback.",
         ],
     ],
     [
-        "title" => "",
-        "company" => "",
-        "date" => "",
+        "title" => "Project Collaborator",
+        "company" => "Group Assignments",
+        "date" => "2024 - Present",
         "details" => [
-            "",
-            "",
-            "",
+            "Worked with classmates on programming tasks, presentations, and documentation.",
+            "Contributed to task planning, debugging, and checking output quality.",
+            "Practiced teamwork, communication, and time management in shared deliverables.",
         ],
     ],
     [
-        "title" => "",
-        "company" => "",
-        "date" => "",
+        "title" => "Independent Learner",
+        "company" => "Self-Study and Labs",
+        "date" => "2025 - Present",
         "details" => [
-            "",
-            "",
-            "",
+            "Practiced Python, JavaScript, and MySQL through guided exercises.",
+            "Strengthened problem-solving skills by troubleshooting layout and code issues.",
+            "Continues to build confidence in developing practical technical outputs.",
         ],
     ],
 ];
@@ -161,7 +161,6 @@ function displayText($text) {
                     <div><?php echo displayText($website); ?></div>
                 </div>
             </div>
-            <div class="photo"></div>
         </header>
 
         <div class="content">
@@ -176,9 +175,9 @@ function displayText($text) {
                 </section>
 
                 <section class="section">
-                    <h2>Operational Skills</h2>
+                    <h2>Technical Skills</h2>
                     <ul class="blank-list compact">
-                        <?php foreach ($operationalSkills as $skill) { ?>
+                        <?php foreach ($technicalSkills as $skill) { ?>
                             <li><?php echo displayText($skill); ?></li>
                         <?php } ?>
                     </ul>
@@ -226,31 +225,40 @@ function displayText($text) {
                 </section>
 
                 <section class="section">
-                    <h2>Education</h2>
+                    <div class="section-toolbar section-toolbar--education">
+                        <div class="section-heading">
+                            <h2>Educational Qualification</h2>
+                        </div>
+                    </div>
                     <?php foreach ($education as $school) { ?>
-                        <article class="education-item">
-                            <div class="education-meta">
-                                <span class="education-level"><?php echo displayText($school["level"]); ?></span>
-                                <span class="education-date"><?php echo displayText($school["date"]); ?></span>
+                        <article class="education-item education-item--modern">
+                            <div class="education-copy">
+                                <div class="education-meta">
+                                    <span class="education-level"><?php echo displayText($school["level"]); ?></span>
+                                    <span class="education-date"><?php echo displayText($school["date"]); ?></span>
+                                </div>
+                                <h3 class="degree"><?php echo displayText($school["degree"]); ?></h3>
+                                <?php if (!empty($school["school"])) { ?>
+                                    <div class="school"><?php echo displayText($school["school"]); ?></div>
+                                <?php } ?>
                             </div>
-                            <h3 class="degree"><?php echo displayText($school["degree"]); ?></h3>
-                            <?php if (!empty($school["school"])) { ?>
-                                <div class="school"><?php echo displayText($school["school"]); ?></div>
-                            <?php } ?>
                         </article>
                     <?php } ?>
                 </section>
 
                 <section class="section">
-                    <h2>Certifications</h2>
+                    <div class="section-toolbar">
+                        <h2>Certifications</h2>
+                    </div>
                     <?php foreach ($certifications as $certification) { ?>
-                        <article class="certification-item">
-                            <?php if (!empty($certification["status"])) { ?>
-                                <div class="certification-status"><?php echo displayText($certification["status"]); ?></div>
-                            <?php } ?>
-                            <h3 class="certification-title"><?php echo displayText($certification["title"]); ?></h3>
-                            <div class="certification-meta">Awarded by <?php echo displayText($certification["issuer"]); ?> on <?php echo displayText($certification["date"]); ?></div>
-                            <a class="credential-link" href="#" aria-label="View credential for <?php echo displayText($certification["title"]); ?>">View Credential</a>
+                        <article class="certification-item certification-item--modern">
+                            <div class="certification-copy">
+                                <?php if (!empty($certification["status"])) { ?>
+                                    <div class="certification-status"><?php echo displayText($certification["status"]); ?></div>
+                                <?php } ?>
+                                <h3 class="certification-title"><?php echo displayText($certification["title"]); ?></h3>
+                                <div class="certification-meta">Awarded by <?php echo displayText($certification["issuer"]); ?> on <?php echo displayText($certification["date"]); ?></div>
+                            </div>
                         </article>
                     <?php } ?>
                 </section>
