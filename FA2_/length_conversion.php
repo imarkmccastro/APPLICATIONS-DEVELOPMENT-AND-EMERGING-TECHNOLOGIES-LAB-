@@ -1,15 +1,12 @@
 <?php
 $meter = 1;
-
-if (isset($_POST["meter"])) {
-    $meter = $_POST["meter"];
-}
-
-$centimeter = $meter * 100;
-$millimeter = $meter * 1000;
-$kilometer = $meter / 1000;
-$inch = $meter * 39.3701;
-$foot = $meter * 3.28084;
+$kilometer = 1;
+$centimeter = 1;
+$millimeter = 1;
+$inch = 1;
+$foot = 1;
+$yard = 1;
+$mile = 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,28 +21,116 @@ $foot = $meter * 3.28084;
     <div class="box conversion-box">
         <h2>Length Conversion</h2>
 
-        <form method="post" class="conversion-form">
-            <label>Enter meter:</label>
-            <input type="number" name="meter" step="0.01" value="<?php echo $meter; ?>">
-            <input type="submit" value="Convert">
-        </form>
+        <h3>Metric Conversions</h3>
+        <table class="conversion-table">
+            <tr>
+                <th>Given</th>
+                <th>Formula</th>
+                <th>Answer</th>
+            </tr>
+            <tr>
+                <td><?php echo $meter; ?> meter</td>
+                <td>meter * 100</td>
+                <td><?php echo $meter * 100; ?> centimeter</td>
+            </tr>
+            <tr>
+                <td><?php echo $meter; ?> meter</td>
+                <td>meter * 1000</td>
+                <td><?php echo $meter * 1000; ?> millimeter</td>
+            </tr>
+            <tr>
+                <td><?php echo $kilometer; ?> kilometer</td>
+                <td>kilometer * 1000</td>
+                <td><?php echo $kilometer * 1000; ?> meter</td>
+            </tr>
+            <tr>
+                <td><?php echo $centimeter; ?> centimeter</td>
+                <td>centimeter / 100</td>
+                <td><?php echo $centimeter / 100; ?> meter</td>
+            </tr>
+            <tr>
+                <td><?php echo $millimeter; ?> millimeter</td>
+                <td>millimeter / 1000</td>
+                <td><?php echo $millimeter / 1000; ?> meter</td>
+            </tr>
+        </table>
 
-        <div class="result-list">
-            <p><?php echo $meter; ?> meter = <span><?php echo $centimeter; ?> centimeter</span></p>
-            <p><?php echo $meter; ?> meter = <span><?php echo $millimeter; ?> millimeter</span></p>
-            <p><?php echo $meter; ?> meter = <span><?php echo $kilometer; ?> kilometer</span></p>
-            <p><?php echo $meter; ?> meter = <span><?php echo number_format($inch, 4); ?> inches</span></p>
-            <p><?php echo $meter; ?> meter = <span><?php echo number_format($foot, 4); ?> feet</span></p>
-        </div>
-    </div>
+        <h3>Imperial Conversions</h3>
+        <table class="conversion-table">
+            <tr>
+                <th>Given</th>
+                <th>Formula</th>
+                <th>Answer</th>
+            </tr>
+            <tr>
+                <td><?php echo $foot; ?> foot</td>
+                <td>foot * 12</td>
+                <td><?php echo $foot * 12; ?> inches</td>
+            </tr>
+            <tr>
+                <td><?php echo $yard; ?> yard</td>
+                <td>yard * 3</td>
+                <td><?php echo $yard * 3; ?> feet</td>
+            </tr>
+            <tr>
+                <td><?php echo $mile; ?> mile</td>
+                <td>mile * 5280</td>
+                <td><?php echo $mile * 5280; ?> feet</td>
+            </tr>
+            <tr>
+                <td><?php echo $foot; ?> foot</td>
+                <td>foot / 3</td>
+                <td><?php echo number_format($foot / 3, 4); ?> yard</td>
+            </tr>
+        </table>
 
-    <div class="box formula-box">
-        <h2>Formula Used</h2>
-        <p>Centimeter = meter * 100</p>
-        <p>Millimeter = meter * 1000</p>
-        <p>Kilometer = meter / 1000</p>
-        <p>Inches = meter * 39.3701</p>
-        <p>Feet = meter * 3.28084</p>
+        <h3>Metric to Imperial Conversions</h3>
+        <table class="conversion-table">
+            <tr>
+                <th>Given</th>
+                <th>Formula</th>
+                <th>Answer</th>
+            </tr>
+            <tr>
+                <td><?php echo $meter; ?> meter</td>
+                <td>meter * 39.3701</td>
+                <td><?php echo number_format($meter * 39.3701, 4); ?> inches</td>
+            </tr>
+            <tr>
+                <td><?php echo $meter; ?> meter</td>
+                <td>meter * 3.28084</td>
+                <td><?php echo number_format($meter * 3.28084, 4); ?> feet</td>
+            </tr>
+            <tr>
+                <td><?php echo $kilometer; ?> kilometer</td>
+                <td>kilometer * 0.621371</td>
+                <td><?php echo number_format($kilometer * 0.621371, 4); ?> miles</td>
+            </tr>
+        </table>
+
+        <h3>Imperial to Metric Conversions</h3>
+        <table class="conversion-table">
+            <tr>
+                <th>Given</th>
+                <th>Formula</th>
+                <th>Answer</th>
+            </tr>
+            <tr>
+                <td><?php echo $inch; ?> inch</td>
+                <td>inch * 2.54</td>
+                <td><?php echo $inch * 2.54; ?> centimeters</td>
+            </tr>
+            <tr>
+                <td><?php echo $foot; ?> foot</td>
+                <td>foot * 0.3048</td>
+                <td><?php echo $foot * 0.3048; ?> meter</td>
+            </tr>
+            <tr>
+                <td><?php echo $mile; ?> mile</td>
+                <td>mile * 1.60934</td>
+                <td><?php echo number_format($mile * 1.60934, 4); ?> kilometers</td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>

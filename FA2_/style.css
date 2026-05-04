@@ -1,25 +1,25 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background: #eef6ff;
+    background: #faffc4;
     color: #1f2937;
 }
 
 h3 {
-    width: 520px;
-    margin: 25px auto 12px;
-    font-weight: normal;
+    margin: 20px 0 8px;
+    color: #000000;
+    font-size: 17px;
 }
 
 h2 {
     margin: 0 0 15px;
-    color: #0b5ed7;
+    color: #3856f0;
     font-size: 22px;
 }
 
 .box {
-    width: 520px;
-    border: 1px solid #0b5ed7;
+    width: 760px;
+    border: 1px solid #d7d40b;
     padding: 22px;
     margin-left: auto;
     margin-right: auto;
@@ -37,57 +37,30 @@ h2 {
     line-height: 1.5;
 }
 
+.conversion-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.conversion-table th {
+    background: #ffe600;
+    color: white;
+}
+
+.conversion-table th,
+.conversion-table td {
+    border: 1px solid #b7d4ff;
+    padding: 10px;
+    text-align: left;
+}
+
+.conversion-table tr:nth-child(odd) td {
+    background: #f8fbff;
+}
+
 input {
     margin-top: 8px;
     padding: 5px;
-}
-
-.conversion-form {
-    padding: 15px;
-    margin-bottom: 18px;
-    background: #f8fbff;
-    border: 1px solid #b7d4ff;
-}
-
-.conversion-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.conversion-form input[type="number"] {
-    width: 190px;
-    padding: 8px;
-    border: 1px solid #6ea8fe;
-}
-
-.conversion-form input[type="submit"] {
-    padding: 9px 16px;
-    background: #0b5ed7;
-    color: white;
-    border: 1px solid #0b5ed7;
-    cursor: pointer;
-}
-
-.conversion-form input[type="submit"]:hover {
-    background: #084298;
-}
-
-.result-list p {
-    padding: 10px;
-    margin: 8px 0;
-    background: #f8fbff;
-    border-left: 4px solid #0b5ed7;
-}
-
-.result-list span {
-    font-weight: bold;
-    color: #0b5ed7;
-}
-
-.formula-box p {
-    padding-left: 10px;
-    border-left: 3px solid #b7d4ff;
 }
 
 a {
