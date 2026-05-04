@@ -132,7 +132,7 @@ $certifications = [
     ],
     [
         "status" => "",
-        "title" => "IT Specialist - Databases.",
+        "title" => "IT Specialist - Databases",
         "issuer" => "Certiport",
         "date" => "November 11, 2025",
     ],
