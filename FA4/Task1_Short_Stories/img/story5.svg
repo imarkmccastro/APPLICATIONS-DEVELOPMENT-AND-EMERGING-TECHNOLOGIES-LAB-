@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250">
+  <rect width="400" height="250" fill="#a07060"/>
+  <text x="200" y="110" font-family="Arial" font-size="28" font-weight="bold" fill="white" text-anchor="middle">Story 5</text>
+  <text x="200" y="148" font-family="Arial" font-size="18" fill="white" text-anchor="middle">The Last Letter</text>
+</svg>
