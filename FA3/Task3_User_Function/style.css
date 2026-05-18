@@ -1,0 +1,25 @@
+/* CSS Grid Layout */
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "head head"
+    "main main"
+    "foot foot";
+  grid-template-columns: 1fr;
+  gap: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header { grid-area: head; background-color: #333; color: #fff; padding: 20px; text-align: center; }
+.main { grid-area: main; padding: 15px; text-align: center; }
+.footer { grid-area: foot; background-color: #333; color: #fff; padding: 10px; text-align: center; }
+
+/* General */
+body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+
+/* Table Styling */
+h2 { text-align: center; }
+table { width: 100%; border-collapse: collapse; margin: 0 auto; border: 1px solid #333; }
+td { border: 1px solid #333; padding: 10px; text-align: center; }
+.array-list { text-align: center; }
