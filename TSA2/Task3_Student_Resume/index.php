@@ -6,10 +6,10 @@ $dateOfBirth   = "October 15, 2005";
 $age           = "20";
 $gender        = "Male";
 $nationality   = "Filipino";
-$religion      = "Roman Catholic";
+$religion      = "INC";
 $address       = "Manila, Philippines";
 $contactNumber = "+63 912 345 6789";
-$emailAddress  = "mark.benedict.castro@gmail.com";
+$emailAddress  = "mocastro@fit.edu.ph";
 
 require('header.php');
 ?>
