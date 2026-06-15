@@ -3,7 +3,8 @@
 <head>
     <title>Activity 1 - Personal Information</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #fafbfc; background-image: radial-gradient(circle at 15% 50%, rgba(200, 220, 255, 0.5), transparent 50%), radial-gradient(circle at 85% 30%, rgba(255, 210, 220, 0.5), transparent 50%), radial-gradient(circle at 50% 80%, rgba(220, 240, 220, 0.5), transparent 50%); color: #1a1a1a; display: flex; flex-direction: column; align-items: center; padding-top: 5vh; min-height: 100vh; margin: 0; font-size: 15px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #fafbfc; background-image: radial-gradient(circle at 15% 50%, rgba(200, 220, 255, 0.5), transparent 50%), radial-gradient(circle at 85% 30%, rgba(255, 210, 220, 0.5), 
+        transparent 50%), radial-gradient(circle at 50% 80%, rgba(220, 240, 220, 0.5), transparent 50%); color: #1a1a1a; display: flex; flex-direction: column; align-items: center; padding-top: 5vh; min-height: 100vh; margin: 0; font-size: 15px; }
         h2 { font-weight: 300; letter-spacing: -0.5px; margin-bottom: 20px; color: #111; z-index: 1; }
         form, .output { width: 100%; max-width: 500px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05); border-radius: 16px; padding: 35px; box-sizing: border-box; margin-bottom: 20px; }
         table { width: 100%; border-collapse: collapse; }
