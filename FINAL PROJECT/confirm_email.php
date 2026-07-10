@@ -21,7 +21,7 @@ if ($code != "") {
 
 <div class="panel form-container">
     <h2>Email Confirmation</h2>
-    <div class="message <?php echo $messageClass; ?>"><?php echo displayText($message); ?></div>
+    <div class="message <?php echo $messageClass; ?>" role="<?php echo $messageClass == 'error' ? 'alert' : 'status'; ?>"><?php echo displayText($message); ?></div>
     <a href="login.php" class="button-link full-button">Go to Buyer Login</a>
 </div>
 

@@ -1,13 +1,25 @@
 Final Project Notes
 
 Selected product: Clothing line
-Company name: ThreadLine Clothing
-Group name: 2ND3T Tech Group
+Company name: BBB
+Group name: BBB
 
 Important files:
 - final_project_db.sql contains the database structure and sample data.
 - sample_accounts.txt contains accounts for testing.
 - database.php uses the same mysqli style as the previous database activities.
+- product.php shows a product detail page with quantity and stock validation.
+- orders.php shows the logged-in buyer's order history and order details.
+
+Store improvements:
+- Product search, category filtering, and price/name sorting.
+- Flash messages, stock badges, responsive tables, and checkout progress.
+- Improved registration validation, payment confirmation, and buyer order history.
+- Modern minimalist editorial layout with full-width campaign imagery and an image-first product grid.
+
+Seller improvements:
+- Dashboard totals, low-stock summary, and recent audit activity.
+- Search and filters for users, stocks, inventory, and audit logs.
 
 Local testing:
 1. Import final_project_db.sql in phpMyAdmin.

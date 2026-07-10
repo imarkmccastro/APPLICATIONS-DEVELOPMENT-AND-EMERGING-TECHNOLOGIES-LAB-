@@ -1,6 +1,0 @@
-<svg width="640" height="420" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
-  <rect width="640" height="420" fill="#edf5ee"/>
-  <path d="M175 250c20-88 235-104 300 0h-300z" fill="#243447" stroke="#1a1a1a" stroke-width="8"/>
-  <path d="M430 244c70 0 102 18 118 42-42 12-94 5-132-12z" fill="#5f6f7f" stroke="#1a1a1a" stroke-width="8"/>
-  <text x="318" y="226" text-anchor="middle" font-family="Arial" font-size="34" font-weight="700" fill="#ffffff">TL</text>
-</svg>

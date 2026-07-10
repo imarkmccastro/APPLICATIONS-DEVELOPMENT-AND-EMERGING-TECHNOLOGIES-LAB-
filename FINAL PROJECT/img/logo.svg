@@ -1,6 +1,0 @@
-<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-  <rect width="120" height="120" rx="24" fill="#1a1a1a"/>
-  <path d="M32 30h56l12 20-14 10v34H34V60L20 50l12-20z" fill="#ffffff"/>
-  <path d="M44 30c4 10 28 10 32 0" fill="none" stroke="#1a1a1a" stroke-width="6"/>
-  <text x="60" y="76" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#1a1a1a">2T</text>
-</svg>

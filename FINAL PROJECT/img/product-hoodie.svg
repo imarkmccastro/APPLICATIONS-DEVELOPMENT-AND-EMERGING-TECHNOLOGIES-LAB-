@@ -1,6 +1,0 @@
-<svg width="640" height="420" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
-  <rect width="640" height="420" fill="#eef3f8"/>
-  <path d="M250 94c10-48 130-48 140 0l62 70-52 52-28-32v154H268V184l-28 32-52-52 62-70z" fill="#5f6f7f" stroke="#243447" stroke-width="8"/>
-  <path d="M274 95c20 28 72 28 92 0M292 255h56v48h-56z" fill="none" stroke="#ffffff" stroke-width="7"/>
-  <text x="320" y="218" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#ffffff">2ND3T</text>
-</svg>

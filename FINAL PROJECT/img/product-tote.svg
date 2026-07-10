@@ -1,6 +1,0 @@
-<svg width="640" height="420" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
-  <rect width="640" height="420" fill="#f7f1e8"/>
-  <path d="M220 130h200l28 220H192l28-220z" fill="#ffffff" stroke="#243447" stroke-width="8"/>
-  <path d="M270 134c0-58 100-58 100 0" fill="none" stroke="#243447" stroke-width="10"/>
-  <text x="320" y="255" text-anchor="middle" font-family="Arial" font-size="36" font-weight="700" fill="#243447">2T</text>
-</svg>

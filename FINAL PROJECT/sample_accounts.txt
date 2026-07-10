@@ -1,12 +1,12 @@
-ThreadLine Clothing - Sample User Accounts
+BBB Clothing Store - Sample User Accounts
 
 Admin Account
-Email: admin@threadline.test
+Email: admin@bbb.test
 Password: admin123
 Use: Seller Part / system admin pages
 
 Buyer Account
-Email: buyer@threadline.test
+Email: buyer@bbb.test
 Password: buyer123
 Use: Buyer login, cart, checkout, and payment page
 
