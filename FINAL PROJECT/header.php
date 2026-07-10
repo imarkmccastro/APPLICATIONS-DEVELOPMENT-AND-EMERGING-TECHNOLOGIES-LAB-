@@ -64,15 +64,15 @@ if ($sidebarCategoryRows) {
         </div>
         <div class="sidebar-col sidebar-images-col">
             <div class="sidebar-promo-image">
-                <img src="BBB/JPG Files/BBB - 10.jpg" alt="Promo">
+                <img src="BBB/Models/BBB - 28.png" alt="Promo">
                 <span>SALE</span>
             </div>
             <div class="sidebar-promo-image">
-                <img src="BBB/JPG Files/BBB - 12.jpg" alt="Promo">
+                <img src="BBB/Models/BBB - 29.png" alt="Promo">
                 <span>THE NEW</span>
             </div>
             <div class="sidebar-promo-image">
-                <img src="BBB/JPG Files/BBB - 15.jpg" alt="Promo">
+                <img src="BBB/Models/BBB - 30.png" alt="Promo">
                 <span>DRESSES</span>
             </div>
         </div>
@@ -91,7 +91,8 @@ if ($sidebarCategoryRows) {
             </a>
         </div>
         <nav class="main-nav header-right" aria-label="Main navigation">
-            <a href="index.php" class="zara-nav-link">Search</a>
+            <a href="index.php" class="zara-nav-link search-link">Search</a>
+            <a href="cart.php" class="zara-nav-link bag-link">Bag <span class="bag-count">[ <?php echo cartCount(); ?> ]</span></a>
             <?php if (isset($_SESSION['user_id'])) { ?>
                 <?php if (($_SESSION['role'] ?? "") == "admin") { ?>
                     <a href="admin_dashboard.php" class="zara-nav-link">Admin</a>
@@ -101,10 +102,8 @@ if ($sidebarCategoryRows) {
                 <a href="logout.php" class="zara-nav-link">Log Out</a>
             <?php } else { ?>
                 <a href="login.php" class="zara-nav-link">Log In</a>
-                <a href="register.php" class="zara-nav-link">Register</a>
             <?php } ?>
             <a href="about.php" class="zara-nav-link">Help</a>
-            <a href="cart.php" class="zara-nav-link">Bag <span class="bag-count"><?php echo cartCount(); ?></span></a>
         </nav>
     </header>
     <main class="page-content">

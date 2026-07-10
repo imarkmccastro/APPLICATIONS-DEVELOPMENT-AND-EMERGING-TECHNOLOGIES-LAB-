@@ -585,21 +585,36 @@ button:disabled {
 .product-image-link {
     display: block;
     overflow: hidden;
-    background: var(--soft-gray);
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: #e6e5df; /* A clear, warm editorial grey/beige */
+}
+
+.product-image-link::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15%;
+    height: 10%;
+    background: radial-gradient(ellipse at top left, #e6e5df 40%, rgba(230, 229, 223, 0) 80%);
+    z-index: 5;
+    pointer-events: none;
 }
 
 .product-card img {
     display: block;
     width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 5;
-    padding: 8px;
+    height: 100%;
     object-fit: contain;
-    transition: transform 0.35s;
+    object-position: center;
+    mix-blend-mode: multiply;
+    transition: transform 0.4s ease;
 }
 
 .product-card:hover img {
-    transform: scale(1.018);
+    transform: scale(1.15); /* Slight zoom on hover for interaction */
 }
 
 .product-body {
@@ -1431,13 +1446,18 @@ body {
     position: fixed;
     width: 100%;
     top: 0;
-    transition: background 0.3s ease;
+    pointer-events: none;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .zara-header .header-left {
     display: flex;
     align-items: center;
     gap: 24px;
+    pointer-events: auto;
 }
 
 .zara-header .hamburger-menu {
@@ -1456,22 +1476,89 @@ body {
 }
 
 .zara-header .main-nav.header-right {
-    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    pointer-events: auto;
 }
 
 .zara-header .zara-nav-link {
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 4px;
+    padding: 4px 0;
     border: none;
+    color: var(--black);
+}
+
+.zara-header .zara-nav-link.search-link {
+    margin-bottom: 160px; /* Space between SEARCH and BAG */
+    border-bottom: 1px solid var(--black);
+    width: 140px;
+    text-align: right;
+    padding-bottom: 6px;
 }
 
 .zara-header .zara-nav-link:hover {
     border-bottom: none;
     text-decoration: underline;
     text-underline-offset: 4px;
+}
+
+.zara-header .zara-nav-link.search-link:hover {
+    text-decoration: none;
+    border-bottom: 1px solid var(--black); /* Keep the solid line */
+}
+
+@media (min-width: 1024px) {
+    .store-panel {
+        padding-left: 220px;
+        padding-right: 150px;
+        padding-top: 100px;
+    }
+    
+    .category-tabs {
+        position: fixed;
+        top: 150px;
+        left: 32px;
+        width: 180px;
+        display: flex;
+        flex-direction: column;
+        border-bottom: none;
+        gap: 12px;
+        margin-bottom: 0;
+        counter-reset: category-counter;
+        z-index: 40;
+    }
+    
+    .category-tabs a {
+        font-size: 10px;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        color: var(--gray);
+        border-bottom: none;
+        padding: 0;
+        text-transform: uppercase;
+    }
+    
+    .category-tabs a::before {
+        counter-increment: category-counter;
+        content: "|" counter(category-counter, decimal-leading-zero) "| ";
+        margin-right: 4px;
+    }
+    
+    .category-tabs a.active, .category-tabs a:hover {
+        color: var(--black);
+        font-weight: 700;
+        border-bottom: none;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 40px 20px;
+    }
 }
 
 .hero {
@@ -1536,26 +1623,10 @@ body {
     font-weight: 500;
 }
 
-.product-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    width: 100%;
-    max-width: none;
-    padding: 0 32px 0 220px;
-}
 
 .product-card {
     position: relative;
     padding-bottom: 24px;
-}
-.product-image-link, .product-card img {
-    background: #fff;
-}
-.product-card img {
-    aspect-ratio: 3/4;
-    padding: 0;
-    object-fit: cover;
-    transform: none !important;
 }
 
 .product-body {
@@ -1872,8 +1943,36 @@ body {
     }
     .sidebar-top-right {
         display: none; /* Hide on mobile to avoid crowding the close button */
-    }
+    }}
+
+.category-section {
+    margin-bottom: 80px;
 }
 
+.category-group-header {
+    margin-bottom: 30px;
+}
 
+.category-title {
+    font-size: 11px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 8px 0;
+    color: var(--black);
+    display: flex;
+    align-items: center;
+}
 
+.category-arrows {
+    font-size: 9px;
+    margin-left: 12px;
+    letter-spacing: 0;
+    font-weight: 300;
+}
+
+.category-count {
+    font-size: 9px;
+    color: #666;
+    letter-spacing: 0.05em;
+}

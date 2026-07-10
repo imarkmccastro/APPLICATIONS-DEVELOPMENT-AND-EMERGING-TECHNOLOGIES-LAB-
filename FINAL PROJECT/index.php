@@ -1,6 +1,11 @@
 <?php
 require 'functions.php';
 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: landing.php");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_cart'])) {
     $result = addProductToCart($conn, $_POST['product_id'] ?? 0, 1);
     setFlashMessage($result['message'], $result['success'] ? "success" : "error");
@@ -63,16 +68,23 @@ if ($search != "") $currentParams['q'] = $search;
 if ($category != "All") $currentParams['category'] = $category;
 if ($sort != "featured") $currentParams['sort'] = $sort;
 $returnUrl = "index.php" . (count($currentParams) ? "?" . http_build_query($currentParams) : "");
+$heroImage = "BBB/Models/BBB - 32(1).png";
 
-$heroImage = "BBB/JPG Files/BBB - 6.jpg";
-if ($category != "All") {
-    $stmtImg = $conn->prepare("SELECT image FROM products WHERE category = ? AND status = 'Active' LIMIT 1");
-    $stmtImg->bind_param("s", $category);
-    $stmtImg->execute();
-    $resImg = $stmtImg->get_result();
-    if ($rowImg = $resImg->fetch_assoc()) {
-        $heroImage = $rowImg['image'];
-    }
+// Map categories to specific model photos
+$modelPhotos = array(
+    "Accessories" => "BBB/Models/BBB - 28(1).png",
+    "Bottoms" =>     "BBB/Models/BBB - 29(1).png",
+    "Dresses" =>     "BBB/Models/BBB - 30(1).png",
+    "Men Tops" =>    "BBB/Models/BBB - 31(1).png",
+    "Outerwear" =>   "BBB/Models/BBB - 32.png",
+    "Women Tops" =>  "BBB/Models/BBB - 33(1).png"
+);
+
+if ($category != "All" && isset($modelPhotos[$category])) {
+    $heroImage = $modelPhotos[$category];
+} else if ($category != "All") {
+    // Fallback if we don't have a specific model mapped
+    $heroImage = "BBB/Models/BBB - 31.png";
 }
 
 
@@ -153,34 +165,57 @@ require 'header.php';
             <p>Try another search term or clear the current filters.</p>
             <a href="index.php" class="button-link">View All Products</a>
         </div>
-    <?php } else { ?>
-        <div class="product-grid">
-            <?php while ($row = $products->fetch_assoc()) { ?>
-                <article class="product-card">
-                    <a class="product-image-link" href="product.php?id=<?php echo displayText($row['id']); ?>">
-                        <img src="<?php echo displayText($row['image']); ?>" alt="<?php echo displayText($row['name']); ?>">
-                    </a>
-                    <div class="product-body">
-                        <p class="eyebrow"><?php echo displayText($row['category']); ?></p>
-                        <h3><a href="product.php?id=<?php echo displayText($row['id']); ?>"><?php echo displayText($row['name']); ?></a></h3>
-                        <p class="muted product-description"><?php echo displayText($row['description']); ?></p>
-                        <div class="product-meta">
-                            <span class="price"><?php echo moneyFormat($row['price']); ?></span>
-                            <span class="badge <?php echo statusClass(stockLabel($row['quantity'])); ?>"><?php echo displayText(stockLabel($row['quantity'])); ?></span>
+    <?php } else { 
+        $allProducts = array();
+        while ($row = $products->fetch_assoc()) {
+            $allProducts[] = $row;
+        }
+        
+        $groupedProducts = array();
+        foreach ($allProducts as $p) {
+            $groupedProducts[$p['category']][] = $p;
+        }
+        
+        foreach ($groupedProducts as $catName => $items) {
+            $count = count($items);
+    ?>
+        <div class="category-section">
+            <div class="category-group-header">
+                <h2 class="category-title"><?php echo strtoupper(displayText($catName)); ?> <span class="category-arrows">>></span></h2>
+                <div class="category-count"><?php echo $count; ?> / <?php echo $count; ?></div>
+            </div>
+            
+            <div class="product-grid">
+                <?php foreach ($items as $row) { ?>
+                    <article class="product-card">
+                        <a class="product-image-link" href="product.php?id=<?php echo displayText($row['id']); ?>">
+                            <img src="<?php echo displayText($row['image']); ?>" alt="<?php echo displayText($row['name']); ?>">
+                        </a>
+                        <div class="product-body">
+                            <p class="eyebrow"><?php echo displayText($row['category']); ?></p>
+                            <h3><a href="product.php?id=<?php echo displayText($row['id']); ?>"><?php echo displayText($row['name']); ?></a></h3>
+                            <p class="muted product-description"><?php echo displayText($row['description']); ?></p>
+                            <div class="product-meta">
+                                <span class="price"><?php echo moneyFormat($row['price']); ?></span>
+                                <span class="badge <?php echo statusClass(stockLabel($row['quantity'])); ?>"><?php echo displayText(stockLabel($row['quantity'])); ?></span>
+                            </div>
+                            <div class="product-actions">
+                                <a class="button-link secondary-button" href="product.php?id=<?php echo displayText($row['id']); ?>">View Product</a>
+                                <form method="POST" action="index.php">
+                                    <input type="hidden" name="product_id" value="<?php echo displayText($row['id']); ?>">
+                                    <input type="hidden" name="return_url" value="<?php echo displayText($returnUrl); ?>">
+                                    <input type="submit" name="add_cart" value="ADD" class="full-button" <?php if ($row['quantity'] <= 0) echo 'disabled'; ?>>
+                                </form>
+                            </div>
                         </div>
-                        <div class="product-actions">
-                            <a class="button-link secondary-button" href="product.php?id=<?php echo displayText($row['id']); ?>">View Product</a>
-                            <form method="POST" action="index.php">
-                                <input type="hidden" name="product_id" value="<?php echo displayText($row['id']); ?>">
-                                <input type="hidden" name="return_url" value="<?php echo displayText($returnUrl); ?>">
-                                <input type="submit" name="add_cart" value="ADD" class="full-button" <?php if ($row['quantity'] <= 0) echo 'disabled'; ?>>
-                            </form>
-                        </div>
-                    </div>
-                </article>
-            <?php } ?>
+                    </article>
+                <?php } ?>
+            </div>
         </div>
-    <?php } ?>
+    <?php 
+        } 
+    } 
+    ?>
 </section>
 
 <?php require 'footer.php'; ?>
