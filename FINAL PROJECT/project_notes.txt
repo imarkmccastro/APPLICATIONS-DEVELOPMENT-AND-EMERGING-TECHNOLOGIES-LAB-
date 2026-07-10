@@ -1,0 +1,15 @@
+Final Project Notes
+
+Selected product: Clothing line
+Company name: ThreadLine Clothing
+Group name: 2ND3T Tech Group
+
+Important files:
+- final_project_db.sql contains the database structure and sample data.
+- sample_accounts.txt contains accounts for testing.
+- database.php uses the same mysqli style as the previous database activities.
+
+Local testing:
+1. Import final_project_db.sql in phpMyAdmin.
+2. Open http://localhost/APPLICATIONS-DEVELOPMENT-AND-EMERGING-TECHNOLOGIES-LAB-/FINAL%20PROJECT/index.php
+3. Use the sample accounts to test the buyer and seller parts.

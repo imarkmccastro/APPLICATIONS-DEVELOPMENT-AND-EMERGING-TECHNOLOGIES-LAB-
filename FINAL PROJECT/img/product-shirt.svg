@@ -1,0 +1,6 @@
+<svg width="640" height="420" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="420" fill="#eef3f8"/>
+  <path d="M215 85h210l70 72-58 56-38-35v157H241V178l-38 35-58-56 70-72z" fill="#ffffff" stroke="#243447" stroke-width="8"/>
+  <path d="M270 86c18 30 82 30 100 0" fill="none" stroke="#243447" stroke-width="8"/>
+  <text x="320" y="245" text-anchor="middle" font-family="Arial" font-size="34" font-weight="700" fill="#243447">THREAD</text>
+</svg>

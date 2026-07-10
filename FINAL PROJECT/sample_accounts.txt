@@ -1,0 +1,14 @@
+ThreadLine Clothing - Sample User Accounts
+
+Admin Account
+Email: admin@threadline.test
+Password: admin123
+Use: Seller Part / system admin pages
+
+Buyer Account
+Email: buyer@threadline.test
+Password: buyer123
+Use: Buyer login, cart, checkout, and payment page
+
+Database File
+Import final_project_db.sql in phpMyAdmin before testing.
