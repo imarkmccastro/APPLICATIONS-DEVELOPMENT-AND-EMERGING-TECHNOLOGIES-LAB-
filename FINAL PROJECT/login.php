@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         $_SESSION['role'] = $user['role'];
         logActivity($conn, "Buyer logged in");
         setFlashMessage("Welcome back, " . $user['complete_name'] . ".");
-        header("Location: index.php");
+        header("Location: showcase.php");
         exit();
     } else if ($user) {
         $message = "Please confirm your email address before logging in.";

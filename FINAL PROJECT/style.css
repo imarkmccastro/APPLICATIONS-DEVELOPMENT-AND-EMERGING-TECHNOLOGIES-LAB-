@@ -1806,12 +1806,17 @@ body {
     color: #000;
 }
 
-.sidebar-logo {
-    max-height: 120px;
-    width: auto;
+.sidebar-logo-link {
     position: absolute;
     left: 12%;
     top: 30px;
+    display: block;
+}
+
+.sidebar-logo {
+    display: block;
+    max-height: 120px;
+    width: auto;
 }
 
 .sidebar-top-right {
@@ -1937,8 +1942,10 @@ body {
     .sidebar-categories-col, .sidebar-subcategories-col {
         width: 100%;
     }
-    .sidebar-logo {
+    .sidebar-logo-link {
         left: 24px;
+    }
+    .sidebar-logo {
         max-height: 80px;
     }
     .sidebar-top-right {
@@ -1975,4 +1982,70 @@ body {
     font-size: 9px;
     color: #666;
     letter-spacing: 0.05em;
+}
+
+/* Seamless arrival from the editorial showcase */
+.showcase-arrival {
+    position: fixed;
+    inset: 0;
+    z-index: 20000;
+    display: grid;
+    place-items: center;
+    background: #fff;
+    color: #171616;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1.05s cubic-bezier(.22, 1, .36, 1), visibility 1.05s;
+}
+
+.showcase-arrival-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.showcase-arrival-mark {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(58px, 7vw, 104px);
+    font-weight: 700;
+    letter-spacing: -.13em;
+    line-height: .75;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: opacity .75s ease, transform 1s cubic-bezier(.22, 1, .36, 1);
+}
+
+.showcase-arrival-rule {
+    display: block;
+    width: 110px;
+    height: 1px;
+    margin-top: 30px;
+    background: #171616;
+    opacity: 1;
+    transform: scaleX(1);
+    transition: opacity .65s ease, transform .9s cubic-bezier(.65, 0, .35, 1);
+}
+
+.showcase-arrival.is-revealed {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.showcase-arrival.is-revealed .showcase-arrival-mark {
+    opacity: 0;
+    transform: translateY(-14px) scale(1.018);
+}
+
+.showcase-arrival.is-revealed .showcase-arrival-rule {
+    opacity: 0;
+    transform: scaleX(.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .showcase-arrival,
+    .showcase-arrival-mark,
+    .showcase-arrival-rule {
+        transition-duration: .01ms !important;
+    }
 }

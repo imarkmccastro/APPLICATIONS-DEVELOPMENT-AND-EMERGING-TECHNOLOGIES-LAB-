@@ -2,7 +2,7 @@
 require 'functions.php';
 
 if (isset($_SESSION['user_id'])) {
-    header("Location: index.php");
+    header("Location: showcase.php");
     exit();
 }
 
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         $_SESSION['complete_name'] = $user['complete_name'];
         $_SESSION['role'] = $user['role'];
         logActivity($conn, "User logged in from landing page");
-        header("Location: index.php");
+        header("Location: showcase.php");
         exit();
     } else if ($user) {
         $message = "Please confirm your email address before logging in.";
@@ -171,20 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         .luxury-rectangle {
             width: 100%;
             height: 85%;
-            background-color: #f4f1eb; /* Elegant warm off-white/beige base */
-            background-image: 
-                /* Subtle diagonal fabric pinstripe */
-                repeating-linear-gradient(
-                    45deg,
-                    transparent,
-                    transparent 15px,
-                    rgba(190, 175, 155, 0.06) 15px,
-                    rgba(190, 175, 155, 0.06) 16px
-                ),
-                /* Soft studio glow from top left */
-                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9) 0%, transparent 70%),
-                /* Subtle shadow gradient at bottom right */
-                radial-gradient(circle at 90% 90%, rgba(210, 200, 190, 0.4) 0%, transparent 60%);
+            background: transparent;
             position: relative;
             overflow: hidden;
         }
@@ -199,8 +186,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         .luxury-rectangle img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            object-position: center bottom;
+            object-fit: cover;
+            object-position: center top;
             mix-blend-mode: multiply;
             position: relative;
             z-index: 1;
@@ -296,7 +283,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         
         <div class="right-panel">
             <div class="luxury-rectangle">
-                <img src="BBB/Models/BBB - 28(1).png" alt="BBB Collection">
+                <img src="BBB/Logo & Theme/Background-3.jpg" alt="BBB Collection">
             </div>
         </div>
     </div>

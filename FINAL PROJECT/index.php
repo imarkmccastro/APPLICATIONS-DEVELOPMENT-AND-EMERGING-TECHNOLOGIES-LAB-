@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_cart'])) {
 }
 
 $pageTitle = "BBB Store";
+$fromShowcase = ($_GET['from'] ?? '') === 'showcase';
 $search = trim($_GET['q'] ?? "");
 $category = trim($_GET['category'] ?? "All");
 $sort = $_GET['sort'] ?? "featured";
@@ -68,7 +69,7 @@ if ($search != "") $currentParams['q'] = $search;
 if ($category != "All") $currentParams['category'] = $category;
 if ($sort != "featured") $currentParams['sort'] = $sort;
 $returnUrl = "index.php" . (count($currentParams) ? "?" . http_build_query($currentParams) : "");
-$heroImage = "BBB/Models/BBB - 32(1).png";
+$heroImage = "BBB/Logo & Theme/Background-4.jpg";
 
 // Map categories to specific model photos
 $modelPhotos = array(
@@ -90,6 +91,29 @@ if ($category != "All" && isset($modelPhotos[$category])) {
 
 require 'header.php';
 ?>
+
+<?php if ($fromShowcase) { ?>
+    <div class="showcase-arrival" id="showcase-arrival" aria-hidden="true">
+        <div class="showcase-arrival-inner">
+            <span class="showcase-arrival-mark">bbb</span>
+            <span class="showcase-arrival-rule"></span>
+        </div>
+    </div>
+    <noscript><style>.showcase-arrival { display: none; }</style></noscript>
+    <script>
+        window.addEventListener('load', function () {
+            var arrival = document.getElementById('showcase-arrival');
+            if (!arrival) return;
+            var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.setTimeout(function () {
+                arrival.classList.add('is-revealed');
+            }, reducedMotion ? 0 : 120);
+            window.setTimeout(function () {
+                arrival.remove();
+            }, reducedMotion ? 80 : 1420);
+        });
+    </script>
+<?php } ?>
 
 <section class="hero">
     <div class="hero-copy">

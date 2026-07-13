@@ -30,7 +30,9 @@ if ($sidebarCategoryRows) {
         <button class="close-menu" aria-label="Close" onclick="document.getElementById('zara-sidebar').classList.remove('open')">
             <svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="0.5" fill="none"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></svg>
         </button>
-        <img src="BBB/JPG Files/BBB - 2.jpg" alt="BBB Logo" class="sidebar-logo">
+        <a href="showcase.php" class="sidebar-logo-link" aria-label="Return to BBB showcase">
+            <img src="BBB/JPG Files/BBB - 2.jpg" alt="BBB Logo" class="sidebar-logo">
+        </a>
         <div class="sidebar-top-right">
             <a href="index.php">SEARCH</a>
             <a href="login.php">LOG IN</a>
@@ -85,7 +87,7 @@ if ($sidebarCategoryRows) {
             <button class="hamburger-menu" aria-label="Menu" onclick="document.getElementById('zara-sidebar').classList.add('open')">
                 <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1" fill="none"><line x1="3" y1="8" x2="21" y2="8"></line><line x1="3" y1="16" x2="21" y2="16"></line></svg>
             </button>
-            <a class="brand" href="index.php">
+            <a class="brand" href="showcase.php" aria-label="Return to BBB showcase">
                 <img src="BBB/JPG Files/BBB - 2.jpg" alt="BBB Logo" style="max-height: 40px; width: auto; object-fit: contain;">
                 <!-- <span><strong>BBB</strong></span> -->
             </a>
