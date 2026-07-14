@@ -1,10 +1,8 @@
 <?php
 require 'functions.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: landing.php");
-    exit();
-}
+// Once the showcase has loaded, the visitor can enter and use the store normally.
+$_SESSION['showcase_seen'] = true;
 
 $showcaseCartCount = cartCount();
 $showcaseCategoryRows = $conn->query("SELECT DISTINCT category FROM products WHERE status = 'Active' ORDER BY category");
@@ -372,6 +370,17 @@ if ($showcaseCategoryRows) {
         .store-entry-line::before { animation: entry-line 1.8s cubic-bezier(.55, 0, .25, 1) infinite; }
         .store-entry-line::after { transform: scaleY(var(--exit-progress)); }
         .store-entry-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+        .showcase-disclaimer {
+            position: absolute;
+            right: 24px;
+            bottom: 18px;
+            left: 24px;
+            color: #777;
+            font-size: 8px;
+            letter-spacing: .08em;
+            text-align: center;
+            text-transform: uppercase;
+        }
         @keyframes entry-line {
             0% { transform: translateY(-100%) scaleY(.36); }
             60%, 100% { transform: translateY(115%) scaleY(.56); }
@@ -523,10 +532,14 @@ if ($showcaseCategoryRows) {
             <a href="cart.php">Bag [<?php echo displayText($showcaseCartCount); ?>]</a>
             <?php if (($_SESSION['role'] ?? '') == 'admin') { ?>
                 <a href="admin_dashboard.php">Admin</a>
-            <?php } else { ?>
+                <a href="logout.php">Log out</a>
+            <?php } else if (($_SESSION['role'] ?? '') == 'buyer' && isset($_SESSION['user_id'])) { ?>
                 <a href="orders.php">Orders</a>
+                <a href="logout.php">Log out</a>
+            <?php } else { ?>
+                <a href="login.php?return_to=showcase.php">Log in</a>
+                <a href="admin_login.php">Seller login</a>
             <?php } ?>
-            <a href="logout.php">Log out</a>
             <a href="about.php">Help</a>
         </nav>
     </header>
@@ -537,7 +550,12 @@ if ($showcaseCategoryRows) {
             <a class="menu-logo" href="showcase.php" aria-label="BBB showcase home">bbb</a>
             <nav class="menu-topnav" aria-label="Menu utilities">
                 <a href="index.php">Search</a>
-                <a href="logout.php">Log out</a>
+                <?php if (isset($_SESSION['user_id'])) { ?>
+                    <a href="logout.php">Log out</a>
+                <?php } else { ?>
+                    <a href="login.php?return_to=showcase.php">Log in</a>
+                    <a href="admin_login.php">Seller login</a>
+                <?php } ?>
                 <a href="about.php">Help</a>
                 <a href="cart.php">Bag [<?php echo displayText($showcaseCartCount); ?>]</a>
             </nav>
@@ -621,6 +639,9 @@ if ($showcaseCategoryRows) {
                 <span class="store-entry-line" aria-hidden="true"></span>
             </a>
             <span class="store-entry-status" id="store-entry-status" aria-live="polite"></span>
+            <footer class="showcase-disclaimer">
+                This website is for educational purposes only and is a requirement for our final project.
+            </footer>
         </section>
     </main>
 

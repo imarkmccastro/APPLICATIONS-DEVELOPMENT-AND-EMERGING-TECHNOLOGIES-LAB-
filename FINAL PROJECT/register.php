@@ -30,13 +30,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
         $stmt->bind_param("ssssssis", $completeName, $email, $password, $address, $contactNumber, $role, $confirmed, $code);
 
         if ($stmt->execute()) {
-            $confirmationLink = "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/confirm_email.php?code=" . $code;
-            $subject = "BBB Email Confirmation";
-            $body = "Hello " . $completeName . ", please confirm your BBB account using this link: " . $confirmationLink;
-            @mail($email, $subject, $body);
+            $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+            $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])), '/');
+            $confirmationLink = $scheme . "://" . $_SERVER['HTTP_HOST'] . $basePath . "/confirm_email.php?code=" . urlencode($code);
+            $emailSent = sendConfirmationEmail($email, $completeName, $confirmationLink);
             logActivity($conn, "Registered buyer account for " . $email);
-            $message = "Registration saved. A confirmation email was sent to " . $email . ".";
-            $messageClass = "success";
+            if ($emailSent) {
+                $message = "Registration saved. A confirmation email was sent to " . $email . ".";
+                $messageClass = "success";
+            } else {
+                $message = isLocalEnvironment()
+                    ? "Registration saved. Local mail delivery is not configured; use the testing confirmation link below."
+                    : "Registration saved, but the confirmation email could not be sent. Please contact the site administrator.";
+                $messageClass = "warning";
+            }
             $completeName = $email = $address = $contactNumber = "";
         } else {
             $errors['email'] = "This email address may already be registered.";
@@ -56,7 +63,7 @@ require 'header.php';
 
 <section class="panel form-container compact-panel">
     <div class="form-heading"><h2>Create Buyer Account</h2><p>Register to checkout and review your BBB orders.</p></div>
-    <?php if ($message != "") { ?><div class="message <?php echo $messageClass; ?>" role="<?php echo $messageClass == 'error' ? 'alert' : 'status'; ?>"><?php echo displayText($message); ?><?php if ($confirmationLink != "") { ?><br><a href="<?php echo displayText($confirmationLink); ?>">Use local confirmation link</a><?php } ?></div><?php } ?>
+    <?php if ($message != "") { ?><div class="message <?php echo $messageClass; ?>" role="<?php echo $messageClass == 'error' ? 'alert' : 'status'; ?>"><?php echo displayText($message); ?><?php if ($confirmationLink != "" && isLocalEnvironment()) { ?><br><a href="<?php echo displayText($confirmationLink); ?>">Use local confirmation link</a><?php } ?></div><?php } ?>
 
     <form method="POST" action="register.php" novalidate>
         <div class="form-group <?php if (isset($errors['complete_name'])) echo 'has-error'; ?>">

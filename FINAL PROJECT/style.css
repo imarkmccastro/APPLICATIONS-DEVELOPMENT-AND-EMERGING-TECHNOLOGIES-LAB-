@@ -122,6 +122,15 @@ textarea:focus-visible {
 .global-message {
     width: min(1120px, calc(100% - 64px));
     margin: 24px auto 0;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .3s ease, transform .3s ease;
+}
+
+.global-message.is-dismissing {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
 }
 
 .panel {
@@ -2047,5 +2056,139 @@ body {
     .showcase-arrival-mark,
     .showcase-arrival-rule {
         transition-duration: .01ms !important;
+    }
+}
+
+/* Guest authentication prompt shown when Add is selected. */
+.auth-modal[hidden] {
+    display: none;
+}
+
+.auth-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 21000;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    animation: auth-modal-fade-in .2s ease-out;
+}
+
+.auth-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, .58);
+    backdrop-filter: blur(5px);
+}
+
+.auth-modal-card {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 440px);
+    padding: 38px 42px 40px;
+    border: 1px solid rgba(255, 255, 255, .35);
+    background: #fff;
+    color: var(--black);
+    box-shadow: 0 28px 90px rgba(0, 0, 0, .35);
+    text-align: center;
+    animation: auth-modal-card-in .28s cubic-bezier(.22, 1, .36, 1);
+}
+
+.auth-modal-card h2 {
+    margin: 7px 0 13px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 31px;
+    line-height: 1.15;
+}
+
+.auth-modal-card > p:not(.auth-modal-kicker) {
+    margin: 0 auto;
+    max-width: 320px;
+    color: #626262;
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.auth-modal-brand {
+    display: inline-block;
+    margin-bottom: 23px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -.13em;
+    line-height: .7;
+}
+
+.auth-modal-kicker {
+    margin: 0;
+    color: #767676;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .19em;
+    text-transform: uppercase;
+}
+
+.auth-modal .auth-modal-close {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    width: 32px;
+    min-height: 32px;
+    margin: 0;
+    border: 1px solid transparent;
+    padding: 0;
+    background: #fff;
+    color: #111;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+.auth-modal .auth-modal-close:hover {
+    border-color: #d8d8d8;
+    background: #f6f6f6;
+    color: #111;
+}
+
+.auth-modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.auth-modal-actions .button-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    margin: 0;
+    font-size: 10px;
+    letter-spacing: .09em;
+}
+
+body.auth-modal-open {
+    overflow: hidden;
+}
+
+@keyframes auth-modal-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes auth-modal-card-in {
+    from { opacity: 0; transform: translateY(14px) scale(.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 480px) {
+    .auth-modal-card {
+        padding: 34px 24px 28px;
+    }
+
+    .auth-modal-actions {
+        grid-template-columns: 1fr;
     }
 }

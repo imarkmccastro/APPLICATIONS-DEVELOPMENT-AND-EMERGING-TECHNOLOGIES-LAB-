@@ -3,6 +3,12 @@ require 'functions.php';
 
 $productId = (int)($_GET['id'] ?? $_POST['product_id'] ?? 0);
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_cart'])) {
+    if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? "") != "buyer") {
+        $returnUrl = "product.php?id=" . $productId;
+        setFlashMessage("Please log in or register before adding items to your bag.", "warning");
+        header("Location: login.php?return_to=" . urlencode($returnUrl));
+        exit();
+    }
     $result = addProductToCart($conn, $productId, $_POST['quantity'] ?? 1);
     setFlashMessage($result['message'], $result['success'] ? "success" : "error");
     header("Location: product.php?id=" . $productId);

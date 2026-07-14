@@ -1,12 +1,21 @@
 <?php
 require 'functions.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: landing.php");
+// Always show the editorial showcase when the Final Project folder is opened.
+// The showcase enters the store through index.php?from=showcase, which avoids a loop.
+$requestedPath = urldecode(parse_url($_SERVER['REQUEST_URI'] ?? "", PHP_URL_PATH));
+$openedProjectFolder = substr(rtrim($requestedPath, "/"), -13) === "FINAL PROJECT";
+if ($openedProjectFolder || !isset($_SESSION['showcase_seen'])) {
+    header("Location: showcase.php");
     exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_cart'])) {
+    if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? "") != "buyer") {
+        setFlashMessage("Please log in or register before adding items to your bag.", "warning");
+        header("Location: login.php?return_to=" . urlencode(safeReturnUrl($_POST['return_url'] ?? "index.php")));
+        exit();
+    }
     $result = addProductToCart($conn, $_POST['product_id'] ?? 0, 1);
     setFlashMessage($result['message'], $result['success'] ? "success" : "error");
     header("Location: " . safeReturnUrl($_POST['return_url'] ?? "index.php"));

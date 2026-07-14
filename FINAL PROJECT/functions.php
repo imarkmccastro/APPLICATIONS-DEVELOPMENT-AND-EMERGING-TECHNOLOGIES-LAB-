@@ -27,6 +27,40 @@ function currentUserName() {
     return $_SESSION['complete_name'] ?? "Guest";
 }
 
+function isLocalEnvironment() {
+    $host = strtolower(preg_replace('/:\\d+$/', '', $_SERVER['HTTP_HOST'] ?? ''));
+    return in_array($host, array('localhost', '127.0.0.1', '::1'));
+}
+
+function sendConfirmationEmail($email, $completeName, $confirmationLink) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return false;
+    }
+
+    $host = strtolower(preg_replace('/[^a-z0-9.-]/i', '', preg_replace('/:\\d+$/', '', $_SERVER['HTTP_HOST'] ?? '')));
+    $defaultFrom = ($host != '' && !isLocalEnvironment()) ? 'no-reply@' . $host : 'no-reply@bbb.test';
+    $fromAddress = getenv('BBB_MAIL_FROM') ?: $defaultFrom;
+    $fromName = getenv('BBB_MAIL_FROM_NAME') ?: 'BBB Clothing Store';
+    $safeName = str_replace(array("\r", "\n"), '', $completeName);
+    $subject = 'Confirm your BBB account';
+    $body = "Hello " . $safeName . ",\r\n\r\n"
+        . "Thank you for registering with BBB. Confirm your e-mail address using the link below:\r\n\r\n"
+        . $confirmationLink . "\r\n\r\n"
+        . "If you did not create this account, you may ignore this message.\r\n";
+    $headers = array(
+        'From: ' . $fromName . ' <' . $fromAddress . '>',
+        'Reply-To: ' . $fromAddress,
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'X-Mailer: PHP/' . phpversion()
+    );
+
+    // mail() emits a raw PHP warning when local SMTP is unavailable. The
+    // boolean result is handled by the registration page with a user-friendly
+    // message, so keep the server-level warning out of the website UI.
+    return @mail($email, $subject, $body, implode("\r\n", $headers));
+}
+
 function setFlashMessage($message, $type = "success") {
     $_SESSION['flash_message'] = array(
         "message" => $message,

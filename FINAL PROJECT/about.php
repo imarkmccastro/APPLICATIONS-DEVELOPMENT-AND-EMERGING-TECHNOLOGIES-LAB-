@@ -5,9 +5,7 @@ require 'header.php';
 $members = array(
     "Mark Benedict Castro",
     "Jovs Francis Caburao",
-    "Andrew De Jesus",
-    "Ivan Frondarina",
-    "Cedrick Valera"
+    "Andrew De Jesus"
 );
 ?>
 

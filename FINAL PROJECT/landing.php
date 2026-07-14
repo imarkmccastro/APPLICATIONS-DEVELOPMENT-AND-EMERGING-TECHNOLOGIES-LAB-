@@ -206,6 +206,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         .bottom-links a:hover {
             color: #000;
         }
+        .educational-footer {
+            flex-shrink: 0;
+            padding: 9px 24px 11px;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 9px;
+            letter-spacing: .04em;
+            text-align: center;
+            text-transform: uppercase;
+        }
         .error-msg {
             color: #a32b3d;
             font-size: 11px;
@@ -277,6 +287,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             
             <div class="bottom-links">
                 <a href="register.php">REGISTER</a>
+                <a href="admin_login.php">SELLER LOGIN</a>
                 <a href="#">COOKIES SETTINGS</a>
             </div>
         </div>
@@ -287,6 +298,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             </div>
         </div>
     </div>
+    <footer class="educational-footer">
+        This website is for educational purposes only and is a requirement for our final project.
+    </footer>
 </div>
 
 </body>
