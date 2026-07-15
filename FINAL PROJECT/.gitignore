@@ -1,0 +1,19 @@
+# Private deployment credentials
+config/database.php
+config/mail_config.php
+
+# Local and generated project files
+temp_out.html
+screenshots/
+BBB_screenshots.pdf
+project_notes.txt
+sample_accounts.txt
+*.log
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+databaselocal.php

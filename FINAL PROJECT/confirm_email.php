@@ -7,7 +7,7 @@ $message = "Invalid confirmation code.";
 $messageClass = "error";
 
 if ($code != "") {
-    $stmt = $conn->prepare("UPDATE users SET email_confirmed = 1 WHERE confirmation_code = ? AND role = 'buyer'");
+    $stmt = $conn->prepare("UPDATE users SET email_confirmed = 1, confirmation_code = NULL WHERE confirmation_code = ? AND role = 'buyer' AND email_confirmed = 0");
     $stmt->bind_param("s", $code);
     $stmt->execute();
     if ($stmt->affected_rows > 0) {

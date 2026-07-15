@@ -218,7 +218,7 @@ require 'header.php';
                 <div class="category-count"><?php echo $count; ?> / <?php echo $count; ?></div>
             </div>
             
-            <div class="product-grid">
+            <div class="product-grid<?php if ($category === 'All') echo ' category-product-track'; ?>"<?php if ($category === 'All') { ?> tabindex="0" aria-label="<?php echo displayText($catName); ?> products; scroll horizontally to view more"<?php } ?>>
                 <?php foreach ($items as $row) { ?>
                     <article class="product-card">
                         <a class="product-image-link" href="product.php?id=<?php echo displayText($row['id']); ?>">
@@ -244,11 +244,93 @@ require 'header.php';
                     </article>
                 <?php } ?>
             </div>
+            <?php if ($category === 'All') { ?>
+                <div class="category-scroll-line" aria-hidden="true"><span></span></div>
+            <?php } ?>
         </div>
+        <?php if ($category === "All" && $catName === "Bottoms") { ?>
+            <figure class="collection-editorial-break">
+                <img src="BBB/Logo & Theme/Background-3.jpg" alt="BBB black and white tailoring campaign">
+                <figcaption>
+                    <span>BBB Editorial / Tailored Form</span>
+                    <span>Built Beyond Basics</span>
+                </figcaption>
+            </figure>
+        <?php } ?>
     <?php 
         } 
     } 
     ?>
 </section>
+
+<?php if ($category === 'All') { ?>
+<script>
+    (function () {
+        var rails = document.querySelectorAll('.category-product-track');
+
+        function updateIndicator(rail) {
+            var line = rail.nextElementSibling;
+            if (!line || !line.classList.contains('category-scroll-line')) return;
+            var thumb = line.querySelector('span');
+            var scrollable = rail.scrollWidth - rail.clientWidth;
+            var visibleRatio = Math.min(1, rail.clientWidth / rail.scrollWidth);
+            var travel = line.clientWidth * (1 - visibleRatio);
+            var progress = scrollable > 0 ? rail.scrollLeft / scrollable : 0;
+            thumb.style.width = (visibleRatio * 100) + '%';
+            thumb.style.transform = 'translateX(' + (travel * progress) + 'px)';
+            line.hidden = scrollable <= 1;
+        }
+
+        rails.forEach(function (rail) {
+            var dragging = false;
+            var moved = false;
+            var suppressClick = false;
+            var startX = 0;
+            var startScrollLeft = 0;
+
+            updateIndicator(rail);
+            rail.addEventListener('scroll', function () { updateIndicator(rail); }, { passive: true });
+            rail.addEventListener('dragstart', function (event) { event.preventDefault(); });
+            rail.addEventListener('pointerdown', function (event) {
+                if (event.pointerType !== 'mouse' || event.button !== 0) return;
+                dragging = true;
+                moved = false;
+                startX = event.clientX;
+                startScrollLeft = rail.scrollLeft;
+                rail.classList.add('is-dragging');
+                rail.setPointerCapture(event.pointerId);
+            });
+            rail.addEventListener('pointermove', function (event) {
+                if (!dragging) return;
+                var distance = event.clientX - startX;
+                if (Math.abs(distance) > 4) moved = true;
+                if (!moved) return;
+                event.preventDefault();
+                rail.scrollLeft = startScrollLeft - distance;
+            });
+
+            function stopDragging(event) {
+                if (!dragging) return;
+                dragging = false;
+                suppressClick = moved;
+                rail.classList.remove('is-dragging');
+                if (rail.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId);
+                window.setTimeout(function () { suppressClick = false; }, 0);
+            }
+
+            rail.addEventListener('pointerup', stopDragging);
+            rail.addEventListener('pointercancel', stopDragging);
+            rail.addEventListener('click', function (event) {
+                if (!suppressClick) return;
+                event.preventDefault();
+                event.stopPropagation();
+            }, true);
+        });
+        window.addEventListener('resize', function () {
+            rails.forEach(updateIndicator);
+        });
+    })();
+</script>
+<?php } ?>
 
 <?php require 'footer.php'; ?>

@@ -23,16 +23,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
     if (!preg_match('/^[0-9+() -]{7,20}$/', $contactNumber)) $errors['contact_number'] = "Enter a valid contact number.";
 
     if (count($errors) == 0) {
-        $code = md5($email . time());
+        $code = bin2hex(random_bytes(32));
         $role = "buyer";
         $confirmed = 0;
         $stmt = $conn->prepare("INSERT INTO users (complete_name, email, password, address, contact_number, role, email_confirmed, confirmation_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssssis", $completeName, $email, $password, $address, $contactNumber, $role, $confirmed, $code);
 
         if ($stmt->execute()) {
-            $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-            $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])), '/');
-            $confirmationLink = $scheme . "://" . $_SERVER['HTTP_HOST'] . $basePath . "/confirm_email.php?code=" . urlencode($code);
+            $confirmationLink = confirmationLink($code);
             $emailSent = sendConfirmationEmail($email, $completeName, $confirmationLink);
             logActivity($conn, "Registered buyer account for " . $email);
             if ($emailSent) {
@@ -41,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
             } else {
                 $message = isLocalEnvironment()
                     ? "Registration saved. Local mail delivery is not configured; use the testing confirmation link below."
-                    : "Registration saved, but the confirmation email could not be sent. Please contact the site administrator.";
+                    : "Registration saved, but the confirmation email could not be sent. Check the address and use the resend confirmation page.";
                 $messageClass = "warning";
             }
             $completeName = $email = $address = $contactNumber = "";
@@ -59,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
 require 'header.php';
 ?>
 
-<div class="nav-links"><a href="index.php">Store</a><a href="login.php">Buyer Login</a></div>
+<div class="nav-links"><a href="index.php">Store</a><a href="login.php">Buyer Login</a><a href="resend_confirmation.php">Resend Confirmation</a></div>
 
 <section class="panel form-container compact-panel">
     <div class="form-heading"><h2>Create Buyer Account</h2><p>Register to checkout and review your BBB orders.</p></div>

@@ -3,21 +3,27 @@ $pageTitle = "About BBB";
 require 'header.php';
 
 $members = array(
+    "Maryclaire Jashley De Jesus",
     "Mark Benedict Castro",
+    "Trina Marielle Viloria",
     "Jovs Francis Caburao",
-    "Andrew De Jesus"
 );
 ?>
 
 <div class="panel wide-container">
-    <div class="about-intro">
-        <img class="about-logo" src="BBB/JPG Files/BBB - 1.jpg" alt="BBB Main Logo">
-        <div>
-            <h2>About BBB</h2>
+    <section class="about-editorial" aria-labelledby="about-title">
+        <figure class="about-editorial-visual">
+            <img src="BBB/Logo & Theme/Background-1.jpg" alt="BBB models wearing neutral tailored clothing in an open field">
+            <figcaption>BBB Editorial &mdash; Built Beyond Basics</figcaption>
+        </figure>
+        <div class="about-editorial-copy">
+            <p class="eyebrow">Our Story</p>
+            <span class="about-editorial-rule" aria-hidden="true"></span>
+            <h2 id="about-title">About BBB</h2>
             <p class="lead">BBB is a clothing company offering polished wardrobe pieces for men and women. This educational store includes buyer registration, email confirmation, shopping, checkout, stock management, inventory reports, and audit logs.</p>
+            <p class="about-signature">Triple B. Atelier</p>
         </div>
-        <img class="about-lifestyle" src="BBB/JPG Files/BBB - 8.jpg" alt="BBB paisley scarf styled with menswear">
-    </div>
+    </section>
 
     <div class="reports-grid">
         <div class="report-card">

@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `final_project_db`;
-USE `final_project_db`;
+-- Select the target database in phpMyAdmin before importing this file.
+-- InfinityFree creates and names the database through its hosting panel.
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -62,7 +62,8 @@ CREATE TABLE IF NOT EXISTS `audit_logs` (
 
 INSERT INTO `users` (`complete_name`, `email`, `password`, `address`, `contact_number`, `role`, `email_confirmed`, `confirmation_code`) VALUES
 ('System Admin', 'admin@bbb.test', 'admin123', 'Manila, Philippines', '09170000001', 'admin', 1, 'admin-confirmed'),
-('Mark Benedict Castro', 'buyer@bbb.test', 'buyer123', 'FEU Institute of Technology, Manila', '09170000002', 'buyer', 1, 'buyer-confirmed');
+('Mark Benedict Castro', 'buyer@bbb.test', 'buyer123', 'FEU Institute of Technology, Manila', '09170000002', 'buyer', 1, 'buyer-confirmed'),
+('BBB Test Buyer', 'buyer123@bbb.test', 'buyer123', 'Manila, Philippines', '09170000003', 'buyer', 1, 'buyer123-confirmed');
 
 INSERT INTO `products` (`name`, `category`, `description`, `price`, `quantity`, `image`, `status`) VALUES
 ('Silk Monogram Scarf', 'Accessories', 'Brown and ivory square scarf with a clean monogram border.', 549.00, 24, 'BBB/JPG Files/BBB - 5.jpg', 'Active'),
@@ -85,7 +86,32 @@ INSERT INTO `products` (`name`, `category`, `description`, `price`, `quantity`, 
 ('Taupe Cropped Jacket', 'Outerwear', 'Tailored taupe cropped jacket with a wide lapel.', 1999.00, 11, 'BBB/JPG Files/BBB - 24.jpg', 'Active'),
 ('Mocha Drape Evening Dress', 'Dresses', 'One-shoulder mocha dress with a flowing draped panel.', 2499.00, 8, 'BBB/JPG Files/BBB - 25.jpg', 'Active'),
 ('Stone Wrap Midi Dress', 'Dresses', 'Long-sleeve stone dress with a flattering wrap waist.', 2199.00, 10, 'BBB/JPG Files/BBB - 26.jpg', 'Active'),
-('Wine Layered Mini Dress', 'Dresses', 'Wine and white mini dress with layered structured panels.', 2299.00, 9, 'BBB/JPG Files/BBB - 27.jpg', 'Active');
+('Wine Layered Mini Dress', 'Dresses', 'Wine and white mini dress with layered structured panels.', 2299.00, 9, 'BBB/JPG Files/BBB - 27.jpg', 'Active'),
+('Silver Extended-Cuff Trousers', 'Bottoms', 'Light silver wide-leg trousers with a long tailored line and turned cuffs.', 1599.00, 14, 'BBB/Bottoms/Bottom - Men(3).png', 'Active'),
+('Onyx Grid High-Waist Trousers', 'Bottoms', 'High-waist black trousers with a subtle woven grid and sweeping wide leg.', 1799.00, 10, 'BBB/Bottoms/Bottom - Men(4).png', 'Active'),
+('Slate Double-Pleat Trousers', 'Bottoms', 'Slate tailored trousers finished with deep double pleats and a relaxed leg.', 1699.00, 12, 'BBB/Bottoms/Bottom - Men(5).png', 'Active'),
+('Noir Pinstripe Wide-Leg Trousers', 'Bottoms', 'Fluid black wide-leg trousers traced with fine vertical pinstripes.', 1799.00, 11, 'BBB/Bottoms/Bottom - Women(6).png', 'Active'),
+('Onyx Harness-Barrel Trousers', 'Bottoms', 'Sculpted black barrel trousers accented by an asymmetric gold-clasp strap.', 1899.00, 9, 'BBB/Bottoms/Bottom - Women(7).png', 'Active'),
+('Navy Pleated-Hem Vest Dress', 'Dresses', 'Tailored navy vest dress with covered buttons and an ivory pleated hem.', 2299.00, 10, 'BBB/Dresses/Dress - Women(2).png', 'Active'),
+('Olive Sculpted Blazer Dress', 'Dresses', 'Sleeveless olive blazer dress shaped with curved seams and metal buttons.', 2399.00, 8, 'BBB/Dresses/Dress - Women(3).png', 'Active'),
+('Pearl Corset Mini Dress', 'Dresses', 'Blush satin corset mini dress embellished with pearls and gathered draping.', 2699.00, 7, 'BBB/Dresses/Dress - Women(4).png', 'Active'),
+('Crimson Rosette Column Dress', 'Dresses', 'Crimson column mini dress covered in dimensional rosettes and trailing petals.', 2599.00, 8, 'BBB/Dresses/Dress - Women(5).png', 'Active'),
+('Cocoa Scarf-Neck Midi Dress', 'Dresses', 'Cocoa chiffon midi dress with a scarf neckline and softly pleated skirt.', 2299.00, 11, 'BBB/Dresses/Dress - Women(6).png', 'Active'),
+('Taupe Tie-Neck Utility Dress', 'Dresses', 'Sleeveless taupe dress with a long tie neck and polished utility pockets.', 2399.00, 9, 'BBB/Dresses/Dress - Women(11).png', 'Active'),
+('Ivory Polka-Dot Drop-Waist Dress', 'Dresses', 'Ivory drop-waist mini dress patterned with black polka dots and a gathered hem.', 1999.00, 12, 'BBB/Dresses/Dress - Women(12).png', 'Active'),
+('Onyx Clasp Work Jacket', 'Men Tops', 'Black work jacket detailed with polished metal clasps and a clean point collar.', 2199.00, 10, 'BBB/Men Tops/Men(3).png', 'Active'),
+('Cocoa Asymmetric Utility Vest', 'Men Tops', 'Washed cocoa utility vest with asymmetric panels and raw-edge finishing.', 1599.00, 13, 'BBB/Men Tops/Men(4).png', 'Active'),
+('Espresso Pinstripe Tie Shirt', 'Men Tops', 'Cropped espresso pinstripe shirt finished with a matching draped tie.', 1699.00, 12, 'BBB/Men Tops/Men(5).png', 'Active'),
+('Noir Short-Sleeve Blazer Shirt', 'Men Tops', 'Minimal black short-sleeve shirt cut with sharp blazer-style lapels.', 1499.00, 15, 'BBB/Men Tops/Men(6).png', 'Active'),
+('Ivory Embroidered Line Overshirt', 'Men Tops', 'Ivory overshirt with tonal abstract line embroidery and a relaxed silhouette.', 1899.00, 11, 'BBB/Men Tops/Men(7).png', 'Active'),
+('Noir Lace-Up Detail Shirt', 'Men Tops', 'Black long-sleeve shirt animated by contrasting white lace-up details.', 1999.00, 9, 'BBB/Men Tops/Men(8).png', 'Active'),
+('Washed Charcoal Muscle Tee', 'Men Tops', 'Sleeveless charcoal tee with a washed finish and sculpted shoulder seams.', 999.00, 18, 'BBB/Men Tops/Men(9).png', 'Active'),
+('Navy Pinstripe Bardot Top', 'Women Tops', 'Off-shoulder navy pinstripe top with sculpted folds and a button front.', 1399.00, 14, 'BBB/Women Tops/Women(3).png', 'Active'),
+('Taupe Sculpted Knit Top', 'Women Tops', 'Fitted taupe knit top shaped with a soft funnel neck and corset-inspired waist.', 1299.00, 15, 'BBB/Women Tops/Women(4).png', 'Active'),
+('Olive Asymmetric Draped Top', 'Women Tops', 'Sleeveless olive top with folded lapels and an asymmetric draped hem.', 1499.00, 12, 'BBB/Women Tops/Women(5).png', 'Active'),
+('Noir Pleated Halter Top', 'Women Tops', 'Black pleated halter top with a ruffled neckline and defined waist.', 1399.00, 13, 'BBB/Women Tops/Women(6).png', 'Active'),
+('Espresso Layered Turtleneck', 'Women Tops', 'Espresso ribbed turtleneck with a cropped overlay and buttoned inner layer.', 1699.00, 10, 'BBB/Women Tops/Women(7).png', 'Active'),
+('Distressed Cocoa Mock-Neck Top', 'Women Tops', 'Sleeveless cocoa mock-neck top with an asymmetric gathered waist and aged finish.', 1499.00, 11, 'BBB/Women Tops/Women(8).png', 'Active');
 
 INSERT INTO `audit_logs` (`user_id`, `user_name`, `activity`) VALUES
 (1, 'System Admin', 'Initial database seed for BBB');

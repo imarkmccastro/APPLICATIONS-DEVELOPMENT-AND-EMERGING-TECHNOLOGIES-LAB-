@@ -3,7 +3,11 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once 'database.php';
+require_once __DIR__ . '/config/database.php';
+
+require_once __DIR__ . '/vendor/phpmailer/phpmailer/src/Exception.php';
+require_once __DIR__ . '/vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require_once __DIR__ . '/vendor/phpmailer/phpmailer/src/SMTP.php';
 
 function displayText($text) {
     return htmlspecialchars($text ?? "", ENT_QUOTES, "UTF-8");
@@ -32,33 +36,111 @@ function isLocalEnvironment() {
     return in_array($host, array('localhost', '127.0.0.1', '::1'));
 }
 
+function getMailConfig() {
+    $defaults = array(
+        'enabled' => false,
+        'host' => '',
+        'port' => 587,
+        'encryption' => 'tls',
+        'username' => '',
+        'password' => '',
+        'from_email' => '',
+        'from_name' => 'BBB Clothing Store',
+        'site_url' => ''
+    );
+
+    $configFile = __DIR__ . '/config/mail_config.php';
+    if (!is_file($configFile)) {
+        return $defaults;
+    }
+
+    $configured = require $configFile;
+    return is_array($configured) ? array_merge($defaults, $configured) : $defaults;
+}
+
+function confirmationLink($code) {
+    $config = getMailConfig();
+    $configuredUrl = rtrim(trim($config['site_url']), '/');
+    if ($configuredUrl != '') {
+        return $configuredUrl . '/confirm_email.php?code=' . urlencode($code);
+    }
+
+    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    if (!preg_match('/^[a-z0-9.-]+(?::\d+)?$/i', $host)) {
+        $host = 'localhost';
+    }
+    $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['PHP_SELF'] ?? '/')), '/');
+    return $scheme . '://' . $host . $basePath . '/confirm_email.php?code=' . urlencode($code);
+}
+
 function sendConfirmationEmail($email, $completeName, $confirmationLink) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return false;
     }
 
-    $host = strtolower(preg_replace('/[^a-z0-9.-]/i', '', preg_replace('/:\\d+$/', '', $_SERVER['HTTP_HOST'] ?? '')));
-    $defaultFrom = ($host != '' && !isLocalEnvironment()) ? 'no-reply@' . $host : 'no-reply@bbb.test';
-    $fromAddress = getenv('BBB_MAIL_FROM') ?: $defaultFrom;
-    $fromName = getenv('BBB_MAIL_FROM_NAME') ?: 'BBB Clothing Store';
+    $config = getMailConfig();
+    if (!$config['enabled'] || $config['host'] == '' || $config['username'] == '' || $config['password'] == '') {
+        return false;
+    }
+
+    $fromAddress = $config['from_email'] ?: $config['username'];
+    if (!filter_var($fromAddress, FILTER_VALIDATE_EMAIL)) {
+        return false;
+    }
+
+    $fromName = $config['from_name'] ?: 'BBB Clothing Store';
     $safeName = str_replace(array("\r", "\n"), '', $completeName);
     $subject = 'Confirm your BBB account';
-    $body = "Hello " . $safeName . ",\r\n\r\n"
+    $plainBody = "Hello " . $safeName . ",\r\n\r\n"
         . "Thank you for registering with BBB. Confirm your e-mail address using the link below:\r\n\r\n"
         . $confirmationLink . "\r\n\r\n"
         . "If you did not create this account, you may ignore this message.\r\n";
-    $headers = array(
-        'From: ' . $fromName . ' <' . $fromAddress . '>',
-        'Reply-To: ' . $fromAddress,
-        'MIME-Version: 1.0',
-        'Content-Type: text/plain; charset=UTF-8',
-        'X-Mailer: PHP/' . phpversion()
-    );
 
-    // mail() emits a raw PHP warning when local SMTP is unavailable. The
-    // boolean result is handled by the registration page with a user-friendly
-    // message, so keep the server-level warning out of the website UI.
-    return @mail($email, $subject, $body, implode("\r\n", $headers));
+    $escapedName = htmlspecialchars($safeName, ENT_QUOTES, 'UTF-8');
+    $escapedLink = htmlspecialchars($confirmationLink, ENT_QUOTES, 'UTF-8');
+    $htmlBody = '<div style="font-family:Arial,sans-serif;color:#171717;line-height:1.6;max-width:560px;margin:auto">'
+        . '<p style="font-size:12px;letter-spacing:2px;text-transform:uppercase">BBB Clothing Store</p>'
+        . '<h1 style="font-size:26px;font-weight:400">Confirm your e-mail</h1>'
+        . '<p>Hello ' . $escapedName . ',</p>'
+        . '<p>Thank you for registering with BBB. Confirm your e-mail address to activate your buyer account.</p>'
+        . '<p style="margin:28px 0"><a href="' . $escapedLink . '" style="background:#171717;color:#fff;padding:13px 22px;text-decoration:none;display:inline-block">Confirm E-mail</a></p>'
+        . '<p style="font-size:12px;color:#666">If the button does not work, copy this link:<br>' . $escapedLink . '</p>'
+        . '<p style="font-size:12px;color:#666">If you did not create this account, you may ignore this message.</p>'
+        . '</div>';
+
+    try {
+        $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+        $mail->isSMTP();
+        $mail->Host = $config['host'];
+        $mail->SMTPAuth = true;
+        $mail->Username = $config['username'];
+        $mail->Password = $config['password'];
+        $mail->Port = (int)$config['port'];
+        $mail->Timeout = 20;
+
+        $encryption = strtolower($config['encryption']);
+        if ($encryption === 'ssl' || $encryption === 'smtps') {
+            $mail->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+        } elseif ($encryption === 'tls' || $encryption === 'starttls') {
+            $mail->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+        } else {
+            $mail->SMTPSecure = '';
+            $mail->SMTPAutoTLS = false;
+        }
+
+        $mail->CharSet = 'UTF-8';
+        $mail->setFrom($fromAddress, $fromName);
+        $mail->addAddress($email, $safeName);
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $htmlBody;
+        $mail->AltBody = $plainBody;
+        return $mail->send();
+    } catch (\PHPMailer\PHPMailer\Exception $exception) {
+        error_log('BBB confirmation email failed: ' . $exception->getMessage());
+        return false;
+    }
 }
 
 function setFlashMessage($message, $type = "success") {

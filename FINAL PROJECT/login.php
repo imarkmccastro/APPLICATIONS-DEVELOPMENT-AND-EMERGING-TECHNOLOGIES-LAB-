@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         header("Location: " . $returnTo);
         exit();
     } else if ($user) {
-        $message = "Please confirm your email address before logging in.";
+        $message = "Please confirm your email address before logging in. You can request a new confirmation email below.";
     } else {
         $message = "Invalid buyer email or password.";
     }
@@ -41,5 +41,6 @@ require 'header.php';
         <div class="form-group"><label for="buyer-password">Password</label><input id="buyer-password" type="password" name="password" autocomplete="current-password" required></div>
         <input type="submit" name="login" value="Login" class="full-button">
     </form>
+    <p class="form-secondary-link"><a href="resend_confirmation.php">Resend confirmation email</a></p>
 </section>
 <?php require 'footer.php'; ?>
