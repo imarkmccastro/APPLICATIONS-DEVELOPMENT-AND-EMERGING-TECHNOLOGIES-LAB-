@@ -293,6 +293,10 @@ require 'header.php';
             rail.addEventListener('dragstart', function (event) { event.preventDefault(); });
             rail.addEventListener('pointerdown', function (event) {
                 if (event.pointerType !== 'mouse' || event.button !== 0) return;
+                // Let product links and form controls receive a normal click.
+                // Pointer capture is only needed when grabbing a non-interactive
+                // part of the rail to scroll it.
+                if (event.target.closest('a, button, input, select, textarea, label, form')) return;
                 dragging = true;
                 moved = false;
                 startX = event.clientX;

@@ -3,7 +3,7 @@ require 'functions.php';
 requireBuyer();
 
 $orderId = (int)($_GET['order_id'] ?? 0);
-$stmt = $conn->prepare("SELECT * FROM orders WHERE id = ? AND user_id = ?");
+$stmt = $conn->prepare("SELECT current_order.*, (SELECT COUNT(*) FROM orders earlier_order WHERE earlier_order.user_id = current_order.user_id AND earlier_order.id <= current_order.id) AS customer_order_number FROM orders current_order WHERE current_order.id = ? AND current_order.user_id = ?");
 $stmt->bind_param("ii", $orderId, $_SESSION['user_id']);
 $stmt->execute();
 $order = $stmt->get_result()->fetch_assoc();
@@ -15,6 +15,8 @@ if (!$order) {
     exit();
 }
 
+$customerOrderNumber = (int)$order['customer_order_number'];
+
 $paymentMethods = array("Cash on Delivery", "Bank Transfer", "Store Pickup Payment");
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['pay']) && $order['status'] != "Payment Submitted") {
     $method = $_POST['payment_method'] ?? "";
@@ -25,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['pay']) && $order['stat
         $stmt->execute();
         $stmt->close();
         logActivity($conn, "Completed payment selection for order #" . $orderId);
-        setFlashMessage("Payment information for order #" . $orderId . " was submitted.");
+        setFlashMessage("Payment information for order #" . $customerOrderNumber . " was submitted.");
         header("Location: payment.php?order_id=" . $orderId);
         exit();
     }
@@ -53,7 +55,7 @@ require 'header.php';
         <?php if ($order['status'] == "Payment Submitted") { ?>
             <div class="completion-mark" aria-hidden="true">&#10003;</div>
             <h2>Order Confirmed</h2>
-            <p class="lead">Your payment selection has been recorded for order #<?php echo displayText($order['id']); ?>.</p>
+            <p class="lead">Your payment selection has been recorded for order #<?php echo displayText($customerOrderNumber); ?>.</p>
             <div class="completion-actions"><a href="orders.php?id=<?php echo displayText($order['id']); ?>" class="button-link">View Order</a><a href="index.php" class="button-link secondary-button">Continue Shopping</a></div>
         <?php } else { ?>
             <h2>Select Payment</h2>
@@ -70,7 +72,7 @@ require 'header.php';
         <?php } ?>
     </div>
     <aside class="panel order-summary">
-        <h2>Order #<?php echo displayText($order['id']); ?></h2>
+        <h2>Order #<?php echo displayText($customerOrderNumber); ?></h2>
         <?php while ($item = $orderItems->fetch_assoc()) { ?>
             <div class="summary-item"><span><?php echo displayText($item['product_name']); ?> x <?php echo displayText($item['quantity']); ?></span><strong><?php echo moneyFormat($item['subtotal']); ?></strong></div>
         <?php } ?>
