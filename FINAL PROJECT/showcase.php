@@ -54,6 +54,10 @@ if ($showcaseCategoryRows) {
             mix-blend-mode: difference;
             pointer-events: none;
         }
+        .showcase-header.opening-panel {
+            color: #fff;
+            mix-blend-mode: normal;
+        }
         .showcase-header > * { pointer-events: auto; }
         .menu-trigger {
             display: flex;
@@ -521,7 +525,7 @@ if ($showcaseCategoryRows) {
     </style>
 </head>
 <body>
-    <header class="showcase-header">
+    <header class="showcase-header opening-panel">
         <button class="menu-trigger" type="button" aria-label="Open menu" aria-controls="showcase-menu" aria-expanded="false">
             <span></span><span></span>
         </button>
@@ -662,6 +666,8 @@ if ($showcaseCategoryRows) {
     <script>
         (function () {
             var menu = document.getElementById('showcase-menu');
+            var showcaseHeader = document.querySelector('.showcase-header');
+            var openingPanel = document.getElementById('atelier');
             var openButton = document.querySelector('.menu-trigger');
             var closeButton = document.querySelector('.menu-close');
             var scrollRoot = document.getElementById('showcase-scroll');
@@ -671,6 +677,11 @@ if ($showcaseCategoryRows) {
             var exitDistance = 0;
             var touchY = null;
             var leaving = false;
+
+            function updateHeaderColor() {
+                var openingLimit = Math.max(0, openingPanel.offsetHeight - showcaseHeader.offsetHeight);
+                showcaseHeader.classList.toggle('opening-panel', scrollRoot.scrollTop < openingLimit);
+            }
 
             function setMenu(open) {
                 menu.classList.toggle('open', open);
@@ -716,8 +727,11 @@ if ($showcaseCategoryRows) {
             }
 
             scrollRoot.addEventListener('scroll', function () {
+                updateHeaderColor();
                 if (!atBottom() && exitDistance) resetExitDistance();
             }, { passive: true });
+            window.addEventListener('resize', updateHeaderColor);
+            updateHeaderColor();
             scrollRoot.addEventListener('wheel', function (event) {
                 if (event.deltaY > 0) addExitDistance(event.deltaY);
             }, { passive: true });

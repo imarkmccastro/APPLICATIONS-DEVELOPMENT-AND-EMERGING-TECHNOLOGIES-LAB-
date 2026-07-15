@@ -1749,6 +1749,7 @@ body {
 .product-card {
     position: relative;
     padding-bottom: 24px;
+    scroll-margin-top: 90px;
 }
 
 .product-body {

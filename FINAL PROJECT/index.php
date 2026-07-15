@@ -220,7 +220,7 @@ require 'header.php';
             
             <div class="product-grid<?php if ($category === 'All') echo ' category-product-track'; ?>"<?php if ($category === 'All') { ?> tabindex="0" aria-label="<?php echo displayText($catName); ?> products; scroll horizontally to view more"<?php } ?>>
                 <?php foreach ($items as $row) { ?>
-                    <article class="product-card">
+                    <article class="product-card" id="product-<?php echo displayText($row['id']); ?>">
                         <a class="product-image-link" href="product.php?id=<?php echo displayText($row['id']); ?>">
                             <img src="<?php echo displayText($row['image']); ?>" alt="<?php echo displayText($row['name']); ?>">
                         </a>
@@ -236,7 +236,7 @@ require 'header.php';
                                 <a class="button-link secondary-button" href="product.php?id=<?php echo displayText($row['id']); ?>">View Product</a>
                                 <form method="POST" action="index.php">
                                     <input type="hidden" name="product_id" value="<?php echo displayText($row['id']); ?>">
-                                    <input type="hidden" name="return_url" value="<?php echo displayText($returnUrl); ?>">
+                                    <input type="hidden" name="return_url" value="<?php echo displayText($returnUrl . '#product-' . $row['id']); ?>">
                                     <input type="submit" name="add_cart" value="ADD" class="full-button" <?php if ($row['quantity'] <= 0) echo 'disabled'; ?>>
                                 </form>
                             </div>
@@ -282,41 +282,46 @@ require 'header.php';
         }
 
         rails.forEach(function (rail) {
+            var tracking = false;
             var dragging = false;
             var moved = false;
             var suppressClick = false;
             var startX = 0;
             var startScrollLeft = 0;
+            var activePointerId = null;
 
             updateIndicator(rail);
             rail.addEventListener('scroll', function () { updateIndicator(rail); }, { passive: true });
             rail.addEventListener('dragstart', function (event) { event.preventDefault(); });
             rail.addEventListener('pointerdown', function (event) {
                 if (event.pointerType !== 'mouse' || event.button !== 0) return;
-                // Let product links and form controls receive a normal click.
-                // Pointer capture is only needed when grabbing a non-interactive
-                // part of the rail to scroll it.
-                if (event.target.closest('a, button, input, select, textarea, label, form')) return;
-                dragging = true;
+                tracking = true;
+                dragging = false;
                 moved = false;
+                activePointerId = event.pointerId;
                 startX = event.clientX;
                 startScrollLeft = rail.scrollLeft;
-                rail.classList.add('is-dragging');
-                rail.setPointerCapture(event.pointerId);
             });
             rail.addEventListener('pointermove', function (event) {
-                if (!dragging) return;
+                if (!tracking || event.pointerId !== activePointerId) return;
                 var distance = event.clientX - startX;
-                if (Math.abs(distance) > 4) moved = true;
-                if (!moved) return;
+                if (Math.abs(distance) <= 4) return;
+                if (!dragging) {
+                    dragging = true;
+                    moved = true;
+                    rail.classList.add('is-dragging');
+                    rail.setPointerCapture(event.pointerId);
+                }
                 event.preventDefault();
                 rail.scrollLeft = startScrollLeft - distance;
             });
 
             function stopDragging(event) {
-                if (!dragging) return;
+                if (!tracking || event.pointerId !== activePointerId) return;
+                tracking = false;
                 dragging = false;
                 suppressClick = moved;
+                activePointerId = null;
                 rail.classList.remove('is-dragging');
                 if (rail.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId);
                 window.setTimeout(function () { suppressClick = false; }, 0);

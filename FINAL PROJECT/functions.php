@@ -180,7 +180,7 @@ function statusClass($status) {
 
 function safeReturnUrl($url, $default = "index.php") {
     $url = trim($url ?? "");
-    if ($url != "" && preg_match('/^[a-zA-Z0-9_.?=&%+-]+$/', $url)) {
+    if ($url != "" && preg_match('/^[a-zA-Z0-9_.?=&%+#-]+$/', $url)) {
         return $url;
     }
     return $default;
